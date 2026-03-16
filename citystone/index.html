@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>City Stone Houses Kalymnos</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Lato',sans-serif;background:url('https://i.imgur.com/c4LWX9v.jpg') center/cover fixed;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:30px 20px;}
+  body::before{content:'';position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:0;}
+  .card{position:relative;z-index:1;background:transparent;border-radius:24px;max-width:520px;width:100%;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.5);}
+  .header{background:rgba(139,94,60,0.25);backdrop-filter:blur(8px);padding:30px 30px 42px;text-align:center;position:relative;}
+  .header::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:30px;background:transparent;border-radius:50% 50% 0 0/100% 100% 0 0;}
+  .welcome-sub{font-size:20px;letter-spacing:5px;text-transform:uppercase;color:#FFD700;margin-bottom:12px;font-weight:900;text-shadow:2px 2px 6px rgba(0,0,0,0.9);}
+  .title{font-size:44px;font-weight:700;font-style:italic;color:#000;line-height:1.2;text-shadow:3px 3px 6px rgba(0,0,0,0.4);font-family:'Playfair Display',serif;}
+  .main-menu{padding:20px 18px 24px;background:transparent;}
+  .menu-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:20px 12px;border-radius:18px;border:1px solid rgba(255,255,255,0.3);cursor:pointer;font-family:'Lato',sans-serif;transition:transform 0.15s,box-shadow 0.15s;background:rgba(255,255,255,0.12);backdrop-filter:blur(8px);color:#fff;text-align:center;width:100%;}
+  .menu-btn:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,0.3);background:rgba(255,255,255,0.22);}
+  .menu-btn .mlabel{font-size:14px;font-weight:900;text-shadow:1px 1px 3px rgba(0,0,0,0.8);}
+  .menu-btn .msub{font-size:11px;opacity:0.85;font-style:italic;}
+  .section{display:none;padding:16px 18px 20px;background:rgba(0,0,0,0.35);backdrop-filter:blur(8px);}
+  .section.active{display:block;}
+  .back-btn{display:inline-flex;align-items:center;gap:8px;background:rgba(220,50,50,0.25);border:1px solid rgba(255,80,80,0.5);border-radius:20px;color:#ff6b6b;font-size:14px;font-weight:700;font-family:'Lato',sans-serif;padding:8px 16px;cursor:pointer;margin-bottom:16px;}
+  .back-btn:hover{background:rgba(220,50,50,0.4);}
+  .sec-title{font-size:22px;font-weight:900;color:#FFD700;text-shadow:2px 2px 4px rgba(0,0,0,0.8);margin-bottom:2px;display:flex;align-items:center;gap:8px;}
+  .sec-sub{font-size:14px;color:rgba(255,255,255,0.75);font-style:italic;margin-bottom:16px;}
+  .info-row{display:flex;align-items:flex-start;gap:12px;background:rgba(255,255,255,0.08);border-radius:14px;padding:14px;margin-bottom:10px;border:1px solid rgba(255,255,255,0.1);}
+  .info-row .ico{font-size:22px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;}
+  .info-row .txt{flex:1;}
+  .bi-en{font-size:14px;font-weight:700;color:#fff;display:block;font-family:'Lato',sans-serif;}
+  .bi-el{font-size:14px;font-weight:400;color:rgba(255,255,255,0.75);display:block;font-style:italic;margin-top:2px;font-family:'Lato',sans-serif;}
+  .bi-desc-en{font-size:13px;color:rgba(255,255,255,0.85);display:block;margin-top:4px;}
+  .bi-desc-el{font-size:13px;color:rgba(255,255,255,0.65);display:block;font-style:italic;}
+  .btn-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:16px;border:1px solid rgba(255,255,255,0.3);font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;transition:transform 0.15s,background 0.2s;font-family:'Lato',sans-serif;white-space:nowrap;background:rgba(255,255,255,0.12);backdrop-filter:blur(8px);color:#fff;}
+  .btn:hover{transform:translateY(-2px);background:rgba(255,255,255,0.22);}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+  .chip{background:rgba(255,255,255,0.15);border-radius:12px;padding:4px 12px;font-size:12px;color:#fff;font-weight:600;border:1px solid rgba(255,255,255,0.2);}
+
+  /* GALLERY */
+  .prop-card{background:rgba(255,255,255,0.08);border-radius:16px;overflow:hidden;margin-bottom:14px;border:1px solid rgba(255,255,255,0.15);}
+  .prop-gallery{position:relative;height:220px;overflow:hidden;}
+  .prop-gallery img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.4s;}
+  .prop-gallery img.active{opacity:1;}
+  .gal-nav{position:absolute;top:50%;transform:translateY(-50%);width:100%;display:flex;justify-content:space-between;padding:0 10px;z-index:5;}
+  .gal-btn{background:rgba(0,0,0,0.5);border:none;color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:18px;font-weight:900;display:flex;align-items:center;justify-content:center;}
+  .gal-btn:hover{background:rgba(0,0,0,0.8);}
+  .gal-counter{position:absolute;top:10px;right:12px;background:rgba(0,0,0,0.5);color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:10px;z-index:5;}
+  .gal-dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:5;}
+  .gal-dots span{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.5);cursor:pointer;display:block;}
+  .gal-dots span.active{background:#fff;}
+  .prop-info{padding:12px 14px;}
+  .prop-name{font-size:18px;font-weight:900;color:#FFD700;text-shadow:1px 1px 3px rgba(0,0,0,0.8);margin-bottom:4px;}
+  .prop-sub{font-size:13px;color:rgba(255,255,255,0.7);margin-bottom:8px;font-style:italic;}
+
+  /* OVERLAYS */
+  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;}
+  .overlay.bottom{align-items:flex-end;padding-bottom:20px;}
+  .overlay.active{display:flex;}
+  .popup-box{background:#fff8eb;border-radius:20px;padding:32px 28px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.4);max-width:300px;width:90%;animation:popIn 0.25s ease;}
+  @keyframes popIn{from{transform:scale(0.8);opacity:0}to{transform:scale(1);opacity:1}}
+  .popup-box h3{font-size:16px;font-weight:700;color:#6B3F1F;margin-bottom:4px;}
+  .popup-box .sub{font-size:12px;color:#a07850;margin-bottom:16px;}
+  .popup-code{font-size:32px;font-weight:900;letter-spacing:5px;color:#8B5E3C;background:rgba(139,94,60,0.1);border-radius:12px;padding:16px 24px;margin-bottom:20px;cursor:pointer;}
+  .popup-close{background:linear-gradient(135deg,#8B5E3C,#C49A6C);color:#fff;border:none;border-radius:20px;padding:9px 28px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;}
+  .sheet{background:#fff8eb;border-radius:24px 24px 16px 16px;padding:24px 20px;width:92%;max-width:420px;max-height:85vh;overflow-y:auto;animation:slideUp 0.25s ease;box-shadow:0 -10px 40px rgba(0,0,0,0.3);}
+  @keyframes slideUp{from{transform:translateY(60px);opacity:0}to{transform:translateY(0);opacity:1}}
+  .sheet h3{font-size:15px;font-weight:700;color:#6B3F1F;text-align:center;margin-bottom:3px;display:flex;align-items:center;justify-content:center;gap:6px;}
+  .sheet .sub{font-size:12px;color:#a07850;text-align:center;margin-bottom:16px;}
+  .opt{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:16px;margin-bottom:9px;text-decoration:none;font-size:13px;font-family:'Lato',sans-serif;border:none;cursor:pointer;width:100%;transition:transform 0.15s;color:#fff;}
+  .opt:hover{transform:translateY(-2px);}
+  .opt .cico{font-size:22px;flex-shrink:0;display:flex;align-items:center;}
+  .opt .clabel{display:flex;flex-direction:column;text-align:left;flex:1;}
+  .opt .clabel .opt-en{font-size:13px;font-weight:700;}
+  .opt .clabel .opt-el{font-size:13px;font-weight:400;font-style:italic;opacity:0.85;margin-top:1px;}
+  .opt-brown{background:linear-gradient(135deg,#8B5E3C,#C49A6C);}
+  .opt-green{background:linear-gradient(135deg,#2d7a4f,#4caf80);}
+  .opt-amber{background:linear-gradient(135deg,#c07a00,#f5a623);}
+  .opt-blue{background:linear-gradient(135deg,#1a73e8,#5ba3f5);}
+  .opt-dark{background:linear-gradient(135deg,#333,#666);}
+  .opt-phone{background:linear-gradient(135deg,#333,#555);}
+  .opt-whatsapp{background:linear-gradient(135deg,#1fbe57,#25D366);}
+  .opt-viber{background:linear-gradient(135deg,#6f3fa8,#9b59d0);}
+  .cancel-btn{width:100%;padding:12px;border-radius:16px;border:1px solid rgba(255,80,80,0.4);background:rgba(220,50,50,0.2);color:#ff6b6b;font-size:13px;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;margin-top:6px;}
+  .cancel-btn:hover{background:rgba(220,50,50,0.35);}
+</style>
+</head>
+<body>
+
+<!-- POPUPS -->
+<div class="overlay" id="lockboxPopup" onclick="closeAll()">
+  <div class="popup-box" onclick="event.stopPropagation()">
+    <h3>Lockbox Code · Κωδικός</h3>
+    <div class="sub">Πατήστε για αντιγραφή · Tap to copy</div>
+    <div class="popup-code" id="lockboxCode" onclick="copyVal('lockboxCode','0000')">0000</div>
+    <button class="popup-close" onclick="closeAll()">OK ✓</button>
+  </div>
+</div>
+<div class="overlay" id="wifiPopup" onclick="closeAll()">
+  <div class="popup-box" onclick="event.stopPropagation()">
+    <h3>Wi-Fi Password · Κωδικός</h3>
+    <div class="sub">Πατήστε για αντιγραφή · Tap to copy</div>
+    <div class="popup-code" id="wifiCode" onclick="copyVal('wifiCode','69422461573')">69422461573</div>
+    <button class="popup-close" onclick="closeAll()">OK ✓</button>
+  </div>
+</div>
+<div class="overlay" id="emailPopup" onclick="closeAll()">
+  <div class="popup-box" onclick="event.stopPropagation()">
+    <h3>Email</h3>
+    <div class="sub">pantelhs.nikolas@gmail.com</div>
+    <button class="popup-close" onclick="closeAll()">OK ✓</button>
+  </div>
+</div>
+
+<!-- CALL SHEET -->
+<div class="overlay bottom" id="callMenu" onclick="closeAll()">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <h3>Επικοινωνήστε μαζί μας · Contact Us</h3>
+    <div class="sub">+30 694 224 6157</div>
+    <a class="opt opt-phone" href="tel:+306942246157"><span class="cico">📞</span><span class="clabel"><span class="opt-en">Κλήση · Call</span><span class="opt-el">Κλήση από τη συσκευή · Call from device</span></span><span>›</span></a>
+    <a class="opt opt-whatsapp" href="https://wa.me/306942246157" target="_blank"><span class="cico">💬</span><span class="clabel"><span class="opt-en">WhatsApp</span><span class="opt-el">Ανοίγει το WhatsApp</span></span><span>›</span></a>
+    <a class="opt opt-viber" href="viber://chat?number=%2B306942246157"><span class="cico">📲</span><span class="clabel"><span class="opt-en">Viber</span><span class="opt-el">Ανοίγει το Viber</span></span><span>›</span></a>
+    <button class="cancel-btn" onclick="closeAll()">Άκυρο · Cancel</button>
+  </div>
+</div>
+
+<!-- BEACH SHEET -->
+<div class="overlay bottom" id="beachMenu" onclick="closeAll()">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <h3>Παραλίες · Beaches</h3>
+    <div class="sub">Από την πιο κοντινή · Nearest first</div>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/8SUJy7Xn2gMLvaDTA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Βουβάλη</span><span class="opt-el">1η · Nearest</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/E24KmnmV3qPFZT1y5" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Κασόνια</span><span class="opt-el">2η</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/WDxLpMRJXfXxUPdL7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Γέφυρα</span><span class="opt-el">3η</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/7AtPxnmqabGiGR999" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Βλυχάδια</span><span class="opt-el">4η</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/MuH9KQxrZMVXSGb29" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Καντούνι</span><span class="opt-el">5η</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/fzp5SjzHfU52shSz9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Μασούρι</span><span class="opt-el">6η</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/SSga7eSDcj7ePTTc9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Αργινώντα</span><span class="opt-el">7η</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/RqW4YKR3ntuUDcWU8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Σκαλιά</span><span class="opt-el">8η</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/6yipUi1qtxACXXvQ7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Εμπορειός</span><span class="opt-el">9η</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/46x5N1jssnvouxzj9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Καλαμιές</span><span class="opt-el">10η</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/g7DwdrLiW5ZBDcA58" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Παλιόνησος</span><span class="opt-el">11η</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/vfYBwSSWzL1Q6jx18" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Συκάτη</span><span class="opt-el">12η</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/WwBkrs7ZcTjT1wibA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Βαθύς</span><span class="opt-el">13η</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/56aogG58XEXHV5LH7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Ακτή</span><span class="opt-el">14η · Farthest</span></span><span>›</span></a>
+    <button class="cancel-btn" onclick="closeAll()">Κλείσιμο · Close</button>
+  </div>
+</div>
+
+<!-- FOOD SHEET -->
+<div class="overlay bottom" id="foodMenu" onclick="closeAll()">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <h3>Φαγητό · Food</h3>
+    <div class="sub">Επιλέξτε κατηγορία · Choose category</div>
+    <div id="foodCats">
+      <button class="opt opt-amber" onclick="showCat('tavernes')"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Εστιατόρια - Ταβέρνες Πόθια</span><span class="opt-el">Restaurants · Taverns Pothia</span></span><span>›</span></button>
+      <button class="opt opt-green" onclick="showCat('masouri')"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20"/><path d="M2 12c0-4 8-8 10-8s10 4 10 8"/><path d="M2 12c0 4 8 6 10 6s10-2 10-6"/></svg></span><span class="clabel"><span class="opt-en">Εστιατόρια Μασούρι - Εμπορειός</span><span class="opt-el">Restaurants Masouri · Emporios</span></span><span>›</span></button>
+      <button class="opt opt-green" onclick="showCat('pserimos')"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><span class="clabel"><span class="opt-en">Εστιατόρια Ψέριμος</span><span class="opt-el">Restaurants Pserimos</span></span><span>›</span></button>
+      <button class="opt opt-green" onclick="showCat('telendos')"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><span class="clabel"><span class="opt-en">Εστιατόρια Τέλενδος</span><span class="opt-el">Restaurants Telendos</span></span><span>›</span></button>
+      <button class="opt opt-blue" onclick="showCat('cafe')"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Φούρνοι - Γλυκά - Καφέ</span><span class="opt-el">Bakeries · Sweets · Cafés</span></span><span>›</span></button>
+    </div>
+    <div id="cat-tavernes" style="display:none">
+      <button class="opt opt-dark" onclick="showCat(null)"><span class="cico">‹</span><span class="clabel"><span class="opt-en">Πίσω · Back</span></span></button>
+      <a class="opt opt-amber" href="https://maps.app.goo.gl/NFgCaqk2CauKQ4Hd8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Μαμουζέλος Ταβέρνα</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+      <a class="opt opt-amber" href="https://maps.app.goo.gl/X4L2fgUSDpFHLSoTA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Μπακαλόγατος Ταβέρνα</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+      <a class="opt opt-amber" href="https://maps.app.goo.gl/bEhNpn4a49tT2TM28" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Μανιάς Ουζερί</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+      <a class="opt opt-amber" href="https://maps.app.goo.gl/fvnwkoFGtThQ7qWU9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Πίτσα</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+      <a class="opt opt-amber" href="https://maps.app.goo.gl/aD2c9XkN1yivcsfH6" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Pizza Porto Kalymnos</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+      <a class="opt opt-amber" href="https://maps.app.goo.gl/x9C7CJGKvEzNCJNS7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Humu Sushi</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+      <a class="opt opt-amber" href="https://maps.app.goo.gl/GXgaWk3BR3U8guzU9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Grill Master</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+      <a class="opt opt-amber" href="https://maps.app.goo.gl/fmbShvU2XBvo31ki9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Χοιροπιαστό Σουβλάκια</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+    </div>
+    <div id="cat-masouri" style="display:none">
+      <button class="opt opt-dark" onclick="showCat(null)"><span class="cico">‹</span><span class="clabel"><span class="opt-en">Πίσω · Back</span></span></button>
+      <a class="opt opt-green" href="https://maps.app.goo.gl/KJpd4PtsavsWBT6r8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Αιγαιοπελαγίτικο</span><span class="opt-el">Μασούρι</span></span><span>›</span></a>
+      <a class="opt opt-green" href="https://maps.app.goo.gl/FxVpgsVBcW9j2kwZ6" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Prego</span><span class="opt-el">Μασούρι</span></span><span>›</span></a>
+      <a class="opt opt-green" href="https://maps.app.goo.gl/Ngs4H1w2EAg7Gu5T8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Καπτεν Κώστας</span><span class="opt-el">Εμπορειός</span></span><span>›</span></a>
+    </div>
+    <div id="cat-pserimos" style="display:none">
+      <button class="opt opt-dark" onclick="showCat(null)"><span class="cico">‹</span><span class="clabel"><span class="opt-en">Πίσω · Back</span></span></button>
+      <a class="opt opt-green" href="https://maps.app.goo.gl/UAauXjtHyWVtxLP78" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Τρυπολίτης</span><span class="opt-el">Ψέριμος</span></span><span>›</span></a>
+      <a class="opt opt-green" href="https://maps.app.goo.gl/AdRvPvpWuqCFeead7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Μανώλα</span><span class="opt-el">Ψέριμος</span></span><span>›</span></a>
+    </div>
+    <div id="cat-telendos" style="display:none">
+      <button class="opt opt-dark" onclick="showCat(null)"><span class="cico">‹</span><span class="clabel"><span class="opt-en">Πίσω · Back</span></span></button>
+      <a class="opt opt-green" href="https://maps.app.goo.gl/iCNj2FYPcFGVNYcXA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Καψούλι</span><span class="opt-el">Τέλενδος</span></span><span>›</span></a>
+      <a class="opt opt-green" href="https://maps.app.goo.gl/ZgWdxKa6JNNvm5s87" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Ρίτα</span><span class="opt-el">Τέλενδος</span></span><span>›</span></a>
+    </div>
+    <div id="cat-cafe" style="display:none">
+      <button class="opt opt-dark" onclick="showCat(null)"><span class="cico">‹</span><span class="clabel"><span class="opt-en">Πίσω · Back</span></span></button>
+      <a class="opt opt-blue" href="https://maps.app.goo.gl/DkqMz7zYLNCJDmVa9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Βουρος Ζαχαροπλαστείο</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+      <a class="opt opt-blue" href="https://maps.app.goo.gl/FsqNxviWAwZi6s2H9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Μιχαλαράς Ζαχαροπλαστείο</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+      <a class="opt opt-blue" href="https://maps.app.goo.gl/jULc3fGQerKBUDvG7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Νέον Καφέ</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+      <a class="opt opt-blue" href="https://maps.app.goo.gl/wkdBfwGgShTSTfUx5" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Boutique Bistro</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+      <a class="opt opt-blue" href="https://maps.app.goo.gl/c4Ms6rpShPgpttSM9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Κλήμης Αρτοποιείο</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+    </div>
+    <button class="cancel-btn" onclick="closeAll()">Κλείσιμο · Close</button>
+  </div>
+</div>
+
+<!-- CAFE SHEET -->
+<div class="overlay bottom" id="cafeMenu" onclick="closeAll()">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <h3>Καφές - Ποτό · Café & Drinks</h3>
+    <a class="opt opt-blue" href="https://maps.app.goo.gl/fWgoNyFnNEsYicXC8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">ISLAND Cocktail Bar</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+    <a class="opt opt-blue" href="https://maps.app.goo.gl/jcxdhu58H4Egtwss5" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Albus</span><span class="opt-el">Καντούνι</span></span><span>›</span></a>
+    <a class="opt opt-blue" href="https://maps.app.goo.gl/SiTa9XuvJZfmmvdk8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Domus</span><span class="opt-el">Καντούνι</span></span><span>›</span></a>
+    <a class="opt opt-blue" href="https://maps.app.goo.gl/X27z3xhD42Jbip146" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Kantina</span><span class="opt-el">Καντούνι</span></span><span>›</span></a>
+    <button class="cancel-btn" onclick="closeAll()">Κλείσιμο · Close</button>
+  </div>
+</div>
+
+<!-- PLAYGROUND SHEET -->
+<div class="overlay bottom" id="playgroundMenu" onclick="closeAll()">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <h3>Παιδικές Χαρές · Playgrounds</h3>
+    <a class="opt opt-green" href="https://maps.app.goo.gl/C5gYUrCNugdAKdLQA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M8 14s-4 1-4 4h16c0-3-4-4-4-4"/></svg></span><span class="clabel"><span class="opt-en">Παιδική Χαρά 1</span><span class="opt-el">Πιο κοντινή · Nearest</span></span><span>›</span></a>
+    <a class="opt opt-green" href="https://maps.app.goo.gl/zCEeHncRUUPSF2dVA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M8 14s-4 1-4 4h16c0-3-4-4-4-4"/></svg></span><span class="clabel"><span class="opt-en">Παιδική Χαρά 2</span><span class="opt-el">2η</span></span><span>›</span></a>
+    <a class="opt opt-green" href="https://maps.app.goo.gl/ToK95NyVVyL8ZZ3a9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M8 14s-4 1-4 4h16c0-3-4-4-4-4"/></svg></span><span class="clabel"><span class="opt-en">Παιδική Χαρά 3</span><span class="opt-el">Πιο απομακρυσμένη · Farthest</span></span><span>›</span></a>
+    <button class="cancel-btn" onclick="closeAll()">Κλείσιμο · Close</button>
+  </div>
+</div>
+
+<!-- TRANSPORT SHEET -->
+<div class="overlay bottom" id="transportMenu" onclick="closeAll()">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <h3>Μεταφορές · Transport</h3>
+    <a class="opt opt-blue" href="https://maps.app.goo.gl/zKc3boM2kDitqZPY7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M6 20V9l6-6 6 6v11"/></svg></span><span class="clabel"><span class="opt-en">Λιμάνι Καλύμνου</span><span class="opt-el">Kalymnos Port</span></span><span>›</span></a>
+    <a class="opt opt-blue" href="https://maps.app.goo.gl/4i19yLvuQZnHYgPLA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21 4 19 4s-2 1-3.5 2.5L8 10 .8 8.2c-.8-.2-1-.8-.3-1.4l14-7c.7-.4 1.5.1 1.5.9L19 20c0 .8-.6 1.3-1.2 1.2z"/></svg></span><span class="clabel"><span class="opt-en">Αεροδρόμιο Καλύμνου</span><span class="opt-el">Kalymnos Airport</span></span><span>›</span></a>
+    <a class="opt opt-blue" href="https://maps.app.goo.gl/ZcUx58dsCn74GUjt9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M6 20V9l6-6 6 6v11"/></svg></span><span class="clabel"><span class="opt-en">Πορθμείο Μυρτιές - Τέλενδος</span><span class="opt-el">Ferry Myrties - Telendos</span></span><span>›</span></a>
+    <a class="opt opt-blue" href="https://maps.app.goo.gl/N2Rvs7hoDn5hRz4LA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M6 20V9l6-6 6 6v11"/></svg></span><span class="clabel"><span class="opt-en">Πορθμείο για Ψέριμο</span><span class="opt-el">Ferry to Pserimos</span></span><span>›</span></a>
+    <a class="opt opt-blue" href="https://maps.app.goo.gl/VCeFZs6ognZgbVEM8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span><span class="clabel"><span class="opt-en">Σταθμός Λεωφορείων</span><span class="opt-el">Bus Station</span></span><span>›</span></a>
+    <a class="opt opt-blue" href="https://maps.app.goo.gl/AQzpzraESdBv8Cjo6" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><span class="clabel"><span class="opt-en">Σταθμός Ταξί</span><span class="opt-el">Taxi Station</span></span><span>›</span></a>
+    <a class="opt opt-blue" href="https://maps.app.goo.gl/5mTLBuySZ4jWFCih8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span><span class="clabel"><span class="opt-en">Limani Car & Moto Rentals</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+    <a class="opt opt-blue" href="https://maps.app.goo.gl/X4hAKxCT8gVkJBsJ7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span><span class="clabel"><span class="opt-en">Suzuki Rentals</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+    <button class="cancel-btn" onclick="closeAll()">Κλείσιμο · Close</button>
+  </div>
+</div>
+
+<!-- SERVICES SHEET -->
+<div class="overlay bottom" id="servicesMenu" onclick="closeAll()">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <h3>Υπηρεσίες · Services</h3>
+    <a class="opt opt-dark" href="https://maps.app.goo.gl/QiU488cnsPGPViJ4A" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span class="clabel"><span class="opt-en">Αστυνομία · Police</span><span class="opt-el">Kalymnos</span></span><span>›</span></a>
+    <a class="opt opt-dark" href="https://maps.app.goo.gl/Y4V4pVyn1rnDNCXA9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span class="clabel"><span class="opt-en">Πυροσβεστική · Fire Station</span><span class="opt-el">Kalymnos</span></span><span>›</span></a>
+    <a class="opt opt-dark" href="https://maps.app.goo.gl/3nHVdRuiSyMuLSKC6" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M6 20V9l6-6 6 6v11"/></svg></span><span class="clabel"><span class="opt-en">Λιμεναρχείο · Port Authority</span><span class="opt-el">Kalymnos</span></span><span>›</span></a>
+    <a class="opt opt-dark" href="https://maps.app.goo.gl/SgREMWFRXHMJGsN7A" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span><span class="clabel"><span class="opt-en">Νοσοκομείο · Hospital</span><span class="opt-el">Kalymnos</span></span><span>›</span></a>
+    <a class="opt opt-dark" href="https://maps.app.goo.gl/K2LzLXCy7nHthGwX9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span><span class="clabel"><span class="opt-en">Φαρμακείο Choullis</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+    <a class="opt opt-dark" href="https://maps.app.goo.gl/FFEWqm8DyxMmvYoW9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span><span class="clabel"><span class="opt-en">Φαρμακείο Troumouliaris</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+    <button class="cancel-btn" onclick="closeAll()">Κλείσιμο · Close</button>
+  </div>
+</div>
+
+<!-- MARKET SHEET -->
+<div class="overlay bottom" id="marketMenu" onclick="closeAll()">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <h3>Super Market</h3>
+    <a class="opt opt-amber" href="https://maps.app.goo.gl/h5r7pJtYA3Qa55WH9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span><span class="clabel"><span class="opt-en">Μασούτης</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+    <a class="opt opt-amber" href="https://maps.app.goo.gl/jPoVq8dGjseQAfoC7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span><span class="clabel"><span class="opt-en">Σκλαβενίτης Φλασκάς</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+    <a class="opt opt-amber" href="https://maps.app.goo.gl/4ESrnE3fAYoPdJVC9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span><span class="clabel"><span class="opt-en">Super Market</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+    <button class="cancel-btn" onclick="closeAll()">Κλείσιμο · Close</button>
+  </div>
+</div>
+
+<!-- SIGHTS SHEET -->
+<div class="overlay bottom" id="sightsMenu" onclick="closeAll()">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <h3>Αξιοθέατα · Sights</h3>
+    <a class="opt opt-green" href="https://maps.app.goo.gl/EWYnexfeDvjEiaoD6" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="22" x2="22" y2="22"/><path d="M6 18V7l6-5 6 5v11"/><rect x="9" y="13" width="6" height="5"/></svg></span><span class="clabel"><span class="opt-en">Χριστός Καλύμνου</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+    <a class="opt opt-green" href="https://maps.app.goo.gl/BtU8WQJKg5UjNm9t8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="22" x2="22" y2="22"/><path d="M6 18V7l6-5 6 5v11"/><rect x="9" y="13" width="6" height="5"/></svg></span><span class="clabel"><span class="opt-en">Ναυτικό Μουσείο</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+    <a class="opt opt-green" href="https://maps.app.goo.gl/nfy3xUXnFfQNgqhB9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="22" x2="22" y2="22"/><path d="M6 18V7l6-5 6 5v11"/><rect x="9" y="13" width="6" height="5"/></svg></span><span class="clabel"><span class="opt-en">Αρχαιολογικό Μουσείο</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+    <a class="opt opt-green" href="https://maps.app.goo.gl/Zk9RJ3RUx1Z2s54W6" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="22" x2="22" y2="22"/><path d="M6 18V7l6-5 6 5v11"/><rect x="9" y="13" width="6" height="5"/></svg></span><span class="clabel"><span class="opt-en">Άγιος Σάββας</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+    <a class="opt opt-green" href="https://maps.app.goo.gl/Gh6HNyYoNkaTbhai9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg></span><span class="clabel"><span class="opt-en">Κάστρο Χρυσοχεριάς</span><span class="opt-el">Castle Chrysocheria</span></span><span>›</span></a>
+    <a class="opt opt-green" href="https://maps.app.goo.gl/A2yyuhV5KhyHgtN37" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg></span><span class="clabel"><span class="opt-en">Κάστρο Χώρας</span><span class="opt-el">Castle Chora</span></span><span>›</span></a>
+    <a class="opt opt-green" href="https://maps.app.goo.gl/332FP382tDmJM99v9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span class="clabel"><span class="opt-en">Σπήλαιο Αναρρίχησης</span><span class="opt-el">Climbing Cave Masouri</span></span><span>›</span></a>
+    <button class="cancel-btn" onclick="closeAll()">Κλείσιμο · Close</button>
+  </div>
+</div>
+
+<!-- TRAVEL SHEET -->
+<div class="overlay bottom" id="travelMenu" onclick="closeAll()">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <h3>Ταξιδιωτικά · Travel Agencies</h3>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/3mDT5AyPkwT9bCEE6" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><span class="clabel"><span class="opt-en">Cyano Travel</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/7pWrbJZqf8SpeBS89" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><span class="clabel"><span class="opt-en">Magos Tours</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+    <button class="cancel-btn" onclick="closeAll()">Κλείσιμο · Close</button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="header">
+    <div class="welcome-sub">Καλωσορίσατε · Welcome</div>
+    <div class="title">City Stone Houses<br>Kalymnos</div>
+  </div>
+
+  <div id="mainMenu" class="main-menu">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <button class="menu-btn" onclick="showSection('checkin')" style="grid-column:1/-1;flex-direction:row;gap:16px;padding:18px 24px;">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/></svg>
+        <span style="text-align:left;"><span style="display:block;font-size:16px;font-weight:900;text-shadow:1px 1px 3px rgba(0,0,0,0.8);">Check-in / Check-out</span><span style="display:block;font-size:12px;opacity:0.85;font-style:italic;">Κλειδοθήκη & Κωδικοί · Lockbox & Codes</span></span>
+      </button>
+      <button class="menu-btn" onclick="showSection('properties')">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+        <span class="mlabel">Καταλύματα · Accommodations</span>
+        <span class="msub">City Stone Houses Kalymnos</span>
+      </button>
+      <button class="menu-btn" onclick="showSection('contact')">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span class="mlabel">Επικοινωνία · Contact</span>
+        <span class="msub">Τηλέφωνο & Social · Phone & Social</span>
+      </button>
+      <button class="menu-btn" onclick="showSection('explore')">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+        <span class="mlabel">Εξερευνήστε την Κάλυμνο</span>
+        <span class="msub">Explore Kalymnos</span>
+      </button>
+      <button class="menu-btn" onclick="showSection('info')">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <span class="mlabel">Χρήσιμες Πληροφορίες</span>
+        <span class="msub">Useful Information</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- CHECK-IN -->
+  <div id="sec-checkin" class="section">
+    <button class="back-btn" onclick="showSection(null)">‹ Πίσω · Back</button>
+    <div class="sec-title"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/></svg>Check-in / Check-out</div>
+    <div class="sec-sub">Όλα για την άφιξή σας · Everything for your arrival</div>
+    <div class="info-row">
+      <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+      <div class="txt">
+        <span class="bi-en">Check-in: 15:00 · Check-out: 11:00</span>
+        <span class="bi-el">Ώρα άφιξης: 15:00 · Ώρα αναχώρησης: 11:00</span>
+      </div>
+    </div>
+    <div class="info-row">
+      <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/></svg></span>
+      <div class="txt">
+        <span class="bi-en">Lockbox · Κλειδοθήκη</span>
+        <span class="bi-el">Contactless self check-in · Ανέπαφο check-in μέσω κλειδοθήκης</span>
+        <div class="btn-row">
+          <button class="btn" onclick="document.getElementById('lockboxPopup').classList.add('active')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Code · Κωδικός</button>
+          <a class="btn" href="https://maps.app.goo.gl/DwHyLxEJYLXebUWe7" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Find us · Βρείτε μας</a>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg></span>
+      <div class="txt">
+        <span class="bi-en">Wi-Fi Password · Κωδικός Wi-Fi</span>
+        <span class="bi-el">Tap to reveal · Πατήστε για τον κωδικό</span>
+        <div class="btn-row">
+          <button class="btn" onclick="document.getElementById('wifiPopup').classList.add('active')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg>Code · Κωδικός</button>
+          <a class="btn" href="https://www.speedtest.net" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 13 9 16 9"/><path d="M3 15a9 9 0 1 0 9-9"/></svg>Speed Test</a>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="M12 22v-4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg></span>
+      <div class="txt">
+        <span class="bi-en">Water Heater · Θερμοσίφωνας</span>
+        <span class="bi-el">Turn on 5 min before use · Ανάψτε 5 λεπτά πριν τη χρήση</span>
+        <span class="bi-desc-en">Switch is in the electrical panel</span>
+        <span class="bi-desc-el">Ο διακόπτης στον ηλεκτρικό πίνακα</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROPERTIES -->
+  <div id="sec-properties" class="section">
+    <button class="back-btn" onclick="showSection(null)">‹ Πίσω · Back</button>
+    <div class="sec-title"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>Καταλύματα · Accommodations</div>
+    <div class="sec-sub">City Stone Houses Kalymnos</div>
+
+    <div class="prop-card">
+      <div class="prop-gallery" id="g1">
+        <img src="c1_1.jpg" class="active" alt="">
+        <img src="c1_2.jpg" alt="">
+        <img src="c1_3.jpg" alt="">
+        <img src="c1_4.jpg" alt="">
+        <img src="c1_5.jpg" alt="">
+        <img src="c1_6.jpg" alt="">
+        <img src="c1_7.jpg" alt="">
+        <img src="c1_8.jpg" alt="">
+        <img src="c1_9.jpg" alt="">
+        <img src="c1_10.jpg" alt="">
+        <img src="c1_11.jpg" alt="">
+        <img src="c1_12.jpg" alt="">
+        <img src="c1_13.jpg" alt="">
+        <img src="c1_14.jpg" alt="">
+        <div class="gal-counter" id="c1">1 / 14</div>
+        <div class="gal-nav">
+          <button class="gal-btn" id="p1">‹</button>
+          <button class="gal-btn" id="n1">›</button>
+        </div>
+        <div class="gal-dots" id="d1"></div>
+      </div>
+      <div class="prop-info">
+        <div class="prop-name">City Stone Houses Kalymnos · 1</div>
+        <div class="prop-sub">Πόθια · 2-4 άτομα · persons</div>
+        <div class="chips">
+          <span class="chip">🛏️ 2 Rooms</span><span class="chip">📺 TV</span><span class="chip">📶 Wi-Fi</span><span class="chip">❄️ A/C</span><span class="chip">🫧 Washing Machine</span><span class="chip">☕ Coffee Maker</span><span class="chip">🍞 Toaster</span><span class="chip">💨 Hair Dryer</span><span class="chip">👕 Iron</span><span class="chip">🍳 Cookware</span><span class="chip">🍽️ Plates</span><span class="chip">🥃 Glasses</span><span class="chip">🧸 Baby Cot</span><span class="chip">🏖️ Near Sea</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="prop-card">
+      <div class="prop-gallery" id="g2">
+        <img src="https://i.imgur.com/REeFgF0.jpg" class="active" alt="">
+        <img src="https://i.imgur.com/sDdUg3p.jpg" alt="">
+        <img src="https://i.imgur.com/jbvwW8d.jpg" alt="">
+        <img src="https://i.imgur.com/CwNY6dY.jpg" alt="">
+        <img src="https://i.imgur.com/WFUqvOB.jpg" alt="">
+        <img src="https://i.imgur.com/4IZky5w.jpg" alt="">
+        <img src="https://i.imgur.com/icIfOxI.jpg" alt="">
+        <img src="https://i.imgur.com/ExlOBZk.jpg" alt="">
+        <img src="https://i.imgur.com/KZSA2ZE.jpg" alt="">
+        <div class="gal-counter" id="c2">1 / 9</div>
+        <div class="gal-nav">
+          <button class="gal-btn" id="p2">‹</button>
+          <button class="gal-btn" id="n2">›</button>
+        </div>
+        <div class="gal-dots" id="d2"></div>
+      </div>
+      <div class="prop-info">
+        <div class="prop-name">City Stone Houses Kalymnos · 2</div>
+        <div class="prop-sub">Πόθια · 2-4 άτομα · persons</div>
+        <div class="chips">
+          <span class="chip">🛏️ 2 Rooms</span><span class="chip">📺 TV</span><span class="chip">📶 Wi-Fi</span><span class="chip">❄️ A/C</span><span class="chip">🫧 Washing Machine</span><span class="chip">☕ Coffee Maker</span><span class="chip">🍞 Toaster</span><span class="chip">💨 Hair Dryer</span><span class="chip">👕 Iron</span><span class="chip">🍳 Cookware</span><span class="chip">🍽️ Plates</span><span class="chip">🥃 Glasses</span><span class="chip">🧸 Baby Cot</span><span class="chip">🏖️ Near Sea</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPLORE -->
+  <div id="sec-explore" class="section">
+    <button class="back-btn" onclick="showSection(null)">‹ Πίσω · Back</button>
+    <div class="sec-title"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>Εξερευνήστε την Κάλυμνο</div>
+    <div class="sec-sub">Explore Kalymnos</div>
+    <div class="info-row">
+      <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span>
+      <div class="txt">
+        <span class="bi-en">Beaches · Παραλίες</span>
+        <span class="bi-el">14 beaches nearest first · 14 παραλίες από την πιο κοντινή</span>
+        <div class="btn-row">
+          <button class="btn" onclick="document.getElementById('beachMenu').classList.add('active')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg>Beaches · Παραλίες</button>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span>
+      <div class="txt">
+        <span class="bi-en">Food · Φαγητό</span>
+        <span class="bi-el">Restaurants & taverns · Εστιατόρια & ταβέρνες</span>
+        <div class="btn-row">
+          <button class="btn" onclick="document.getElementById('foodMenu').classList.add('active')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>Food · Φαγητό</button>
+          <button class="btn" onclick="document.getElementById('cafeMenu').classList.add('active')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg>Καφές · Drinks</button>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="22" x2="22" y2="22"/><path d="M6 18V7l6-5 6 5v11"/><rect x="9" y="13" width="6" height="5"/></svg></span>
+      <div class="txt">
+        <span class="bi-en">Sights & Activities · Αξιοθέατα</span>
+        <span class="bi-el">Museums, castles & sights · Μουσεία, κάστρα & αξιοθέατα</span>
+        <div class="btn-row">
+          <button class="btn" onclick="document.getElementById('sightsMenu').classList.add('active')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="22" x2="22" y2="22"/><path d="M6 18V7l6-5 6 5v11"/><rect x="9" y="13" width="6" height="5"/></svg>Sights · Αξιοθέατα</button>
+          <button class="btn" onclick="document.getElementById('playgroundMenu').classList.add('active')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M8 14s-4 1-4 4h16c0-3-4-4-4-4"/></svg>Playgrounds · Παιδικές Χαρές</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INFO -->
+  <div id="sec-info" class="section">
+    <button class="back-btn" onclick="showSection(null)">‹ Πίσω · Back</button>
+    <div class="sec-title"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>Χρήσιμες Πληροφορίες</div>
+    <div class="sec-sub">Useful Information</div>
+    <div class="info-row">
+      <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18"/><path d="M3 6h18"/><path d="M3 18h18"/></svg></span>
+      <div class="txt">
+        <span class="bi-en">Transport · Μεταφορές</span>
+        <span class="bi-el">Port, airport, ferries & rentals</span>
+        <div class="btn-row">
+          <button class="btn" onclick="document.getElementById('transportMenu').classList.add('active')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18"/><path d="M3 6h18"/><path d="M3 18h18"/></svg>Transport · Μεταφορές</button>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+      <div class="txt">
+        <span class="bi-en">Services · Υπηρεσίες</span>
+        <span class="bi-el">Police, hospital, pharmacy</span>
+        <div class="btn-row">
+          <button class="btn" onclick="document.getElementById('servicesMenu').classList.add('active')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Services · Υπηρεσίες</button>
+          <button class="btn" onclick="document.getElementById('marketMenu').classList.add('active')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Super Market</button>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></span>
+      <div class="txt">
+        <span class="bi-en">Travel Info · Πληροφορίες Ταξιδιού</span>
+        <span class="bi-el">Maps, schedules, ferries & flights</span>
+        <div class="btn-row">
+          <a class="btn" href="https://kalymnos-isl.gr/en/information/map2" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>Χάρτης · Map</a>
+          <a class="btn" href="https://kalymnos-isl.gr/en/information/bus-itineraries" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Λεωφορεία</a>
+          <a class="btn" href="https://kalymnos-isl.gr/en/information/useful-phones" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Τηλέφωνα</a>
+          <a class="btn" href="https://www.directferries.gr/piraeus_kalymnos_ferry.htm" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M6 20V9l6-6 6 6v11"/></svg>Πλοία</a>
+          <a class="btn" href="https://gr.skyscanner.com/flights-to/jkl/cheap-flights-to-kalymnos-airport.html" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21 4 19 4s-2 1-3.5 2.5L8 10 .8 8.2c-.8-.2-1-.8-.3-1.4l14-7c.7-.4 1.5.1 1.5.9L19 20c0 .8-.6 1.3-1.2 1.2z"/></svg>Πτήσεις</a>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+      <div class="txt">
+        <span class="bi-en">Travel Agencies · Ταξιδιωτικά Γραφεία</span>
+        <div class="btn-row">
+          <button class="btn" onclick="document.getElementById('travelMenu').classList.add('active')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Travel Agencies</button>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg></span>
+      <div class="txt">
+        <span class="bi-en">Bins · Χώρος Απόρριψης Σκουπιδιών</span>
+        <div class="btn-row">
+          <a class="btn" href="https://maps.app.goo.gl/QFnD616SqkTg2xSG8" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Google Maps</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div id="sec-contact" class="section">
+    <button class="back-btn" onclick="showSection(null)">‹ Πίσω · Back</button>
+    <div class="sec-title"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Επικοινωνία · Contact</div>
+    <div class="sec-sub">Είμαστε εδώ για εσάς · We are here for you</div>
+    <div class="info-row">
+      <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+      <div class="txt">
+        <span class="bi-en">Καλέστε μας · Call Us</span>
+        <span class="bi-el">Τηλέφωνο, WhatsApp, Viber</span>
+        <div class="btn-row">
+          <button class="btn" onclick="document.getElementById('callMenu').classList.add('active')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Καλέστε μας · Call Us</button>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+      <div class="txt">
+        <span class="bi-en">Email</span>
+        <span class="bi-el">pantelhs.nikolas@gmail.com</span>
+        <div class="btn-row">
+          <button class="btn" onclick="document.getElementById('emailPopup').classList.add('active')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Email</button>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></span>
+      <div class="txt">
+        <span class="bi-en">Social Media</span>
+        <div class="btn-row">
+          <a class="btn" href="https://www.facebook.com/city.stone.houses" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>Facebook</a>
+          <a class="btn" href="https://maps.app.goo.gl/DwHyLxEJYLXebUWe7" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Maps</a>
+        </div>
+      </div>
+    </div>
+    <div class="info-row">
+      <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></span>
+      <div class="txt">
+        <span class="bi-en">Copy · Αντιγραφή</span>
+        <div class="btn-row">
+          <button class="btn" id="cpPhone" onclick="copyText('+306942246157','cpPhone')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>+30 694 224 6157</button>
+          <button class="btn" id="cpEmail" onclick="copyText('pantelhs.nikolas@gmail.com','cpEmail')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy Email</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // SECTIONS
+  function showSection(id){
+    document.getElementById('mainMenu').style.display = id ? 'none' : 'block';
+    ['checkin','properties','explore','info','contact'].forEach(s=>{
+      var el = document.getElementById('sec-'+s);
+      if(el) el.classList.toggle('active', s===id);
+    });
+  }
+
+  // OVERLAYS
+  function closeAll(){
+    ['lockboxPopup','wifiPopup','emailPopup','callMenu','beachMenu','foodMenu','cafeMenu','playgroundMenu','transportMenu','servicesMenu','marketMenu','sightsMenu','travelMenu'].forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) el.classList.remove('active');
+    });
+    showCat(null);
+  }
+
+  // FOOD CATS
+  function showCat(cat){
+    var fc = document.getElementById('foodCats');
+    if(fc) fc.style.display = cat ? 'none' : 'block';
+    ['tavernes','masouri','cafe','pserimos','telendos'].forEach(function(c){
+      var el = document.getElementById('cat-'+c);
+      if(el) el.style.display = (cat===c) ? 'block' : 'none';
+    });
+  }
+
+  // COPY
+  function copyVal(elId, val){
+    try{ navigator.clipboard.writeText(val); }catch(e){
+      var ta=document.createElement('textarea'); ta.value=val; ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+    }
+    var el=document.getElementById(elId); var orig=el.textContent;
+    el.textContent='✓ Copied!'; setTimeout(function(){ el.textContent=orig; },1500);
+  }
+  function copyText(val, btnId){
+    try{ navigator.clipboard.writeText(val); }catch(e){
+      var ta=document.createElement('textarea'); ta.value=val; ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+    }
+    var btn=document.getElementById(btnId); var orig=btn.textContent;
+    btn.textContent='✓ Αντιγράφηκε!'; setTimeout(function(){ btn.textContent=orig; },2000);
+  }
+
+  // GALLERY
+  var gIdx = {g1:0, g2:0};
+
+  function galMove(gId, dir){
+    var imgs = document.getElementById(gId).querySelectorAll('img');
+    imgs[gIdx[gId]].classList.remove('active');
+    gIdx[gId] = (gIdx[gId] + dir + imgs.length) % imgs.length;
+    imgs[gIdx[gId]].classList.add('active');
+    document.getElementById(gId.replace('g','c')).textContent = (gIdx[gId]+1)+' / '+imgs.length;
+    var dots = document.getElementById(gId.replace('g','d')).children;
+    for(var i=0;i<dots.length;i++) dots[i].classList.toggle('active', i===gIdx[gId]);
+  }
+
+  function galInit(gId){
+    var g = document.getElementById(gId);
+    if(!g) return;
+    var imgs = g.querySelectorAll('img');
+    var dotsEl = document.getElementById(gId.replace('g','d'));
+    for(var i=0;i<imgs.length;i++){
+      (function(idx){
+        var d = document.createElement('span');
+        if(idx===0) d.classList.add('active');
+        d.addEventListener('click', function(e){
+          e.stopPropagation();
+          imgs[gIdx[gId]].classList.remove('active');
+          gIdx[gId]=idx;
+          imgs[idx].classList.add('active');
+          document.getElementById(gId.replace('g','c')).textContent=(idx+1)+' / '+imgs.length;
+          var ds=dotsEl.children;
+          for(var j=0;j<ds.length;j++) ds[j].classList.toggle('active',j===idx);
+        });
+        dotsEl.appendChild(d);
+      })(i);
+    }
+    var num = gId.replace('g','');
+    var pBtn = document.getElementById('p'+num);
+    var nBtn = document.getElementById('n'+num);
+    if(pBtn) pBtn.addEventListener('click', function(e){ e.stopPropagation(); galMove(gId,-1); });
+    if(nBtn) nBtn.addEventListener('click', function(e){ e.stopPropagation(); galMove(gId,1); });
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    galInit('g1');
+    galInit('g2');
+  });
+
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeAll(); });
+</script>
+</body>
+</html>
