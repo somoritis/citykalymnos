@@ -35,8 +35,17 @@
   .btn-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
   .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:16px;border:1px solid rgba(255,255,255,0.3);font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;transition:transform 0.15s,background 0.2s;font-family:'Lato',sans-serif;white-space:nowrap;background:rgba(255,255,255,0.12);backdrop-filter:blur(8px);color:#fff;}
   .btn:hover{transform:translateY(-2px);background:rgba(255,255,255,0.22);}
-  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
-  .chip{background:rgba(255,255,255,0.15);border-radius:12px;padding:4px 12px;font-size:12px;color:#fff;font-weight:600;border:1px solid rgba(255,255,255,0.2);}
+  .chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;}
+  .chip{background:rgba(255,255,255,0.15);border-radius:10px;padding:3px 10px;font-size:12px;color:#fff;font-weight:600;border:1px solid rgba(255,255,255,0.2);}
+
+  /* CHECKIN ACCORDION */
+  .checkin-accordion{margin-bottom:14px;border-radius:18px;overflow:hidden;border:1px solid rgba(255,215,0,0.35);}
+  .checkin-toggle{width:100%;display:flex;align-items:center;gap:12px;padding:14px 16px;background:rgba(139,94,60,0.35);backdrop-filter:blur(8px);border:none;cursor:pointer;font-family:'Lato',sans-serif;color:#FFD700;font-size:14px;font-weight:900;text-shadow:1px 1px 3px rgba(0,0,0,0.8);text-align:left;transition:background 0.2s;}
+  .checkin-toggle:hover{background:rgba(139,94,60,0.55);}
+  .checkin-toggle .acc-arrow{margin-left:auto;font-size:18px;transition:transform 0.3s;display:inline-block;}
+  .checkin-toggle.open .acc-arrow{transform:rotate(180deg);}
+  .checkin-body{display:none;padding:14px 16px;background:rgba(139,94,60,0.12);}
+  .checkin-body.open{display:block;}
 
   /* GALLERY */
   .prop-card{background:rgba(255,255,255,0.08);border-radius:16px;overflow:hidden;margin-bottom:14px;border:1px solid rgba(255,255,255,0.15);}
@@ -84,6 +93,24 @@
   .opt-viber{background:linear-gradient(135deg,#6f3fa8,#9b59d0);}
   .cancel-btn{width:100%;padding:12px;border-radius:16px;border:1px solid rgba(255,80,80,0.4);background:rgba(220,50,50,0.2);color:#ff6b6b;font-size:13px;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;margin-top:6px;}
   .cancel-btn:hover{background:rgba(220,50,50,0.35);}
+
+  /* TOAST NOTIFICATION */
+  .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(20,20,20,0.92);backdrop-filter:blur(12px);color:#fff;padding:14px 20px;border-radius:16px;font-family:'Lato',sans-serif;font-size:13px;font-weight:600;text-align:center;z-index:99999;opacity:0;transition:opacity 0.35s ease,transform 0.35s ease;pointer-events:none;max-width:300px;border:1px solid rgba(255,215,0,0.3);box-shadow:0 8px 32px rgba(0,0,0,0.5);}
+  .toast .toast-icon{font-size:18px;display:block;margin-bottom:6px;}
+  .toast .toast-el{display:block;color:#FFD700;font-size:13px;font-weight:700;margin-bottom:3px;}
+  .toast .toast-en{display:block;color:rgba(255,255,255,0.8);font-size:12px;font-style:italic;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  /* TOAST */
+  .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(20,20,20,0.92);backdrop-filter:blur(12px);color:#fff;border-radius:16px;padding:14px 20px;max-width:320px;width:90%;z-index:99999;display:flex;align-items:flex-start;gap:12px;box-shadow:0 8px 32px rgba(0,0,0,0.4);border:1px solid rgba(255,215,0,0.3);opacity:0;pointer-events:none;transition:opacity 0.35s ease, transform 0.35s ease;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto;}
+  .toast-icon{font-size:22px;flex-shrink:0;margin-top:1px;}
+  .toast-body{flex:1;}
+  .toast-title{font-size:13px;font-weight:900;color:#FFD700;margin-bottom:3px;}
+  .toast-msg{font-size:12px;color:rgba(255,255,255,0.85);line-height:1.5;}
+  .toast-bar{position:absolute;bottom:0;left:0;height:3px;background:linear-gradient(90deg,#8B5E3C,#FFD700);border-radius:0 0 16px 16px;width:100%;transform-origin:left;animation:none;}
+  .toast.show .toast-bar{animation:toastBar 5s linear forwards;}
+  @keyframes toastBar{from{transform:scaleX(1)}to{transform:scaleX(0)}}
 </style>
 </head>
 <body>
@@ -118,9 +145,9 @@
   <div class="sheet" onclick="event.stopPropagation()">
     <h3>Επικοινωνήστε μαζί μας · Contact Us</h3>
     <div class="sub">+30 694 224 6157</div>
-    <a class="opt opt-phone" href="tel:+306942246157"><span class="cico">📞</span><span class="clabel"><span class="opt-en">Κλήση · Call</span><span class="opt-el">Κλήση από τη συσκευή · Call from device</span></span><span>›</span></a>
-    <a class="opt opt-whatsapp" href="https://wa.me/306942246157" target="_blank"><span class="cico">💬</span><span class="clabel"><span class="opt-en">WhatsApp</span><span class="opt-el">Ανοίγει το WhatsApp</span></span><span>›</span></a>
-    <a class="opt opt-viber" href="viber://chat?number=%2B306942246157"><span class="cico">📲</span><span class="clabel"><span class="opt-en">Viber</span><span class="opt-el">Ανοίγει το Viber</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="tel:+306942246157"><span class="cico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><span class="clabel"><span class="opt-en">Κλήση · Call</span><span class="opt-el">Κλήση από τη συσκευή · Call from device</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://wa.me/306942246157" target="_blank"><span class="cico"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></span><span class="clabel"><span class="opt-en">WhatsApp</span><span class="opt-el">Ανοίγει το WhatsApp</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="viber://chat?number=%2B306942246157"><span class="cico"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M11.398.002C9.473.028 5.331.344 3.014 2.467 1.12 4.356.481 7.136.404 10.57c-.077 3.433-.168 9.874 6.045 11.572v2.662s-.041 1.089.677 1.309c.873.267 1.33-.495 2.168-1.484.453-.519.988-1.138 1.412-1.63 3.88.326 6.863-.42 7.201-.529.784-.254 5.217-.822 5.94-6.707.746-6.065-.362-9.893-2.946-11.627l-.001-.001c-.742-.532-3.265-1.703-8.31-1.74a26.24 26.24 0 0 0-.192-.003zm.048 1.745h.168c4.491.033 6.756 1.006 7.378 1.45 2.139 1.44 3.047 4.808 2.394 9.983-.593 4.85-4.181 5.144-4.822 5.352-.278.09-2.958.743-6.306.529 0 0-2.5 3.017-3.278 3.796-.125.124-.27.175-.368.151-.139-.036-.177-.199-.175-.438l.022-3.682s-.001-.022-.002-.038C1.61 17.406 1.715 11.968 1.78 8.984c.064-2.999.574-5.376 2.143-6.956C5.951 .32 9.716.032 11.39.033l.056-.002.001-.283zM12 4.835c-.483 0-.483.748 0 .754 2.742.033 4.964 1.009 6.12 2.954.97 1.641 1.018 3.684.974 4.918 0 .483.748.483.754 0 .048-1.334-.011-3.577-1.1-5.42-1.296-2.19-3.8-3.266-6.749-3.206zm1.002 2.497c-.483.028-.455.78.028.754 1.836-.1 3.381.892 3.771 2.655.117.527.148 1.069.153 1.553.003.483.757.48.754-.003-.005-.542-.04-1.147-.174-1.728-.479-2.165-2.384-3.343-4.532-3.231zm-4.967.533c-.565-.028-1.15.282-1.47.813-.298.502-.344 1.07-.119 1.614.693 1.66 1.587 3.08 2.747 4.287 1.167 1.177 2.603 2.054 4.327 2.72.569.208 1.15.17 1.651-.135.558-.341.869-.887.879-1.481.007-.335-.204-.747-.554-1.015l-1.578-1.247a.956.956 0 0 0-1.238.079l-.52.52c-.191.191-.488.219-.707.057-.508-.378-1.108-.947-1.65-1.654-.543-.706-.979-1.439-1.243-2.007-.102-.22-.051-.514.136-.697l.501-.501a.956.956 0 0 0 .062-1.245l-1.22-1.545c-.232-.296-.554-.494-.804-.509l-.001.001z"/></svg></span><span class="clabel"><span class="opt-en">Viber</span><span class="opt-el">Ανοίγει το Viber</span></span><span>›</span></a>
     <button class="cancel-btn" onclick="closeAll()">Άκυρο · Cancel</button>
   </div>
 </div>
@@ -130,20 +157,20 @@
   <div class="sheet" onclick="event.stopPropagation()">
     <h3>Παραλίες · Beaches</h3>
     <div class="sub">Από την πιο κοντινή · Nearest first</div>
-    <a class="opt opt-brown" href="https://maps.app.goo.gl/8SUJy7Xn2gMLvaDTA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Βουβάλη</span><span class="opt-el">1η · Nearest</span></span><span>›</span></a>
-    <a class="opt opt-brown" href="https://maps.app.goo.gl/E24KmnmV3qPFZT1y5" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Κασόνια</span><span class="opt-el">2η</span></span><span>›</span></a>
-    <a class="opt opt-brown" href="https://maps.app.goo.gl/WDxLpMRJXfXxUPdL7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Γέφυρα</span><span class="opt-el">3η</span></span><span>›</span></a>
-    <a class="opt opt-brown" href="https://maps.app.goo.gl/7AtPxnmqabGiGR999" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Βλυχάδια</span><span class="opt-el">4η</span></span><span>›</span></a>
-    <a class="opt opt-brown" href="https://maps.app.goo.gl/MuH9KQxrZMVXSGb29" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Καντούνι</span><span class="opt-el">5η</span></span><span>›</span></a>
-    <a class="opt opt-brown" href="https://maps.app.goo.gl/fzp5SjzHfU52shSz9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Μασούρι</span><span class="opt-el">6η</span></span><span>›</span></a>
-    <a class="opt opt-brown" href="https://maps.app.goo.gl/SSga7eSDcj7ePTTc9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Αργινώντα</span><span class="opt-el">7η</span></span><span>›</span></a>
-    <a class="opt opt-brown" href="https://maps.app.goo.gl/RqW4YKR3ntuUDcWU8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Σκαλιά</span><span class="opt-el">8η</span></span><span>›</span></a>
-    <a class="opt opt-brown" href="https://maps.app.goo.gl/6yipUi1qtxACXXvQ7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Εμπορειός</span><span class="opt-el">9η</span></span><span>›</span></a>
-    <a class="opt opt-brown" href="https://maps.app.goo.gl/46x5N1jssnvouxzj9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Καλαμιές</span><span class="opt-el">10η</span></span><span>›</span></a>
-    <a class="opt opt-brown" href="https://maps.app.goo.gl/g7DwdrLiW5ZBDcA58" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Παλιόνησος</span><span class="opt-el">11η</span></span><span>›</span></a>
-    <a class="opt opt-brown" href="https://maps.app.goo.gl/vfYBwSSWzL1Q6jx18" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Συκάτη</span><span class="opt-el">12η</span></span><span>›</span></a>
-    <a class="opt opt-brown" href="https://maps.app.goo.gl/WwBkrs7ZcTjT1wibA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Βαθύς</span><span class="opt-el">13η</span></span><span>›</span></a>
-    <a class="opt opt-brown" href="https://maps.app.goo.gl/56aogG58XEXHV5LH7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Ακτή</span><span class="opt-el">14η · Farthest</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/8SUJy7Xn2gMLvaDTA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Βουβάλη · Vouvali</span><span class="opt-el">Παραλία · Beach · 1η Nearest</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/E24KmnmV3qPFZT1y5" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Κασόνια · Kasonia</span><span class="opt-el">Παραλία · Beach · 2η</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/WDxLpMRJXfXxUPdL7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Γέφυρα · Gefyra</span><span class="opt-el">Παραλία · Beach · 3η</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/7AtPxnmqabGiGR999" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Βλυχάδια · Vlychadia</span><span class="opt-el">Παραλία · Beach · 4η</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/MuH9KQxrZMVXSGb29" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Καντούνι · Kantouni</span><span class="opt-el">Παραλία · Beach · 5η</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/fzp5SjzHfU52shSz9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Μασούρι · Masouri</span><span class="opt-el">Παραλία · Beach · 6η</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/SSga7eSDcj7ePTTc9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Αργινώντα · Arginonta</span><span class="opt-el">Παραλία · Beach · 7η</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/RqW4YKR3ntuUDcWU8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Σκαλιά · Skalia</span><span class="opt-el">Παραλία · Beach · 8η</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/6yipUi1qtxACXXvQ7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Εμπορειός · Emporios</span><span class="opt-el">Παραλία · Beach · 9η</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/46x5N1jssnvouxzj9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Καλαμιές · Kalamies</span><span class="opt-el">Παραλία · Beach · 10η</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/g7DwdrLiW5ZBDcA58" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Παλιόνησος · Palionissos</span><span class="opt-el">Παραλία · Beach · 11η</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/vfYBwSSWzL1Q6jx18" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Συκάτη · Sykati</span><span class="opt-el">Παραλία · Beach · 12η</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/WwBkrs7ZcTjT1wibA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Βαθύς · Vathys</span><span class="opt-el">Παραλία · Beach · 13η</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/56aogG58XEXHV5LH7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg></span><span class="clabel"><span class="opt-en">Ακτή · Akti</span><span class="opt-el">Παραλία · Beach · 14η Farthest</span></span><span>›</span></a>
     <button class="cancel-btn" onclick="closeAll()">Κλείσιμο · Close</button>
   </div>
 </div>
@@ -154,46 +181,46 @@
     <h3>Φαγητό · Food</h3>
     <div class="sub">Επιλέξτε κατηγορία · Choose category</div>
     <div id="foodCats">
-      <button class="opt opt-amber" onclick="showCat('tavernes')"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Εστιατόρια - Ταβέρνες Πόθια</span><span class="opt-el">Restaurants · Taverns Pothia</span></span><span>›</span></button>
-      <button class="opt opt-green" onclick="showCat('masouri')"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20"/><path d="M2 12c0-4 8-8 10-8s10 4 10 8"/><path d="M2 12c0 4 8 6 10 6s10-2 10-6"/></svg></span><span class="clabel"><span class="opt-en">Εστιατόρια Μασούρι - Εμπορειός</span><span class="opt-el">Restaurants Masouri · Emporios</span></span><span>›</span></button>
-      <button class="opt opt-green" onclick="showCat('pserimos')"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><span class="clabel"><span class="opt-en">Εστιατόρια Ψέριμος</span><span class="opt-el">Restaurants Pserimos</span></span><span>›</span></button>
-      <button class="opt opt-green" onclick="showCat('telendos')"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><span class="clabel"><span class="opt-en">Εστιατόρια Τέλενδος</span><span class="opt-el">Restaurants Telendos</span></span><span>›</span></button>
-      <button class="opt opt-blue" onclick="showCat('cafe')"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Φούρνοι - Γλυκά - Καφέ</span><span class="opt-el">Bakeries · Sweets · Cafés</span></span><span>›</span></button>
+      <button class="opt opt-brown" onclick="showCat('tavernes')"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Εστιατόρια - Ταβέρνες Πόθια</span><span class="opt-el">Restaurants · Taverns Pothia</span></span><span>›</span></button>
+      <button class="opt opt-brown" onclick="showCat('masouri')"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20"/><path d="M2 12c0-4 8-8 10-8s10 4 10 8"/><path d="M2 12c0 4 8 6 10 6s10-2 10-6"/></svg></span><span class="clabel"><span class="opt-en">Εστιατόρια Μασούρι - Εμπορειός</span><span class="opt-el">Restaurants Masouri · Emporios</span></span><span>›</span></button>
+      <button class="opt opt-brown" onclick="showCat('pserimos')"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><span class="clabel"><span class="opt-en">Εστιατόρια Ψέριμος</span><span class="opt-el">Restaurants Pserimos</span></span><span>›</span></button>
+      <button class="opt opt-brown" onclick="showCat('telendos')"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><span class="clabel"><span class="opt-en">Εστιατόρια Τέλενδος</span><span class="opt-el">Restaurants Telendos</span></span><span>›</span></button>
+      <button class="opt opt-brown" onclick="showCat('cafe')"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Φούρνοι - Γλυκά - Καφέ</span><span class="opt-el">Bakeries · Sweets · Cafés</span></span><span>›</span></button>
     </div>
     <div id="cat-tavernes" style="display:none">
-      <button class="opt opt-dark" onclick="showCat(null)"><span class="cico">‹</span><span class="clabel"><span class="opt-en">Πίσω · Back</span></span></button>
-      <a class="opt opt-amber" href="https://maps.app.goo.gl/NFgCaqk2CauKQ4Hd8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Μαμουζέλος Ταβέρνα</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
-      <a class="opt opt-amber" href="https://maps.app.goo.gl/X4L2fgUSDpFHLSoTA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Μπακαλόγατος Ταβέρνα</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
-      <a class="opt opt-amber" href="https://maps.app.goo.gl/bEhNpn4a49tT2TM28" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Μανιάς Ουζερί</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
-      <a class="opt opt-amber" href="https://maps.app.goo.gl/fvnwkoFGtThQ7qWU9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Πίτσα</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
-      <a class="opt opt-amber" href="https://maps.app.goo.gl/aD2c9XkN1yivcsfH6" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Pizza Porto Kalymnos</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
-      <a class="opt opt-amber" href="https://maps.app.goo.gl/x9C7CJGKvEzNCJNS7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Humu Sushi</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
-      <a class="opt opt-amber" href="https://maps.app.goo.gl/GXgaWk3BR3U8guzU9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Grill Master</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
-      <a class="opt opt-amber" href="https://maps.app.goo.gl/fmbShvU2XBvo31ki9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Χοιροπιαστό Σουβλάκια</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+      <button class="opt opt-brown" onclick="showCat(null)"><span class="cico">‹</span><span class="clabel"><span class="opt-en">Πίσω · Back</span></span></button>
+      <a class="opt opt-brown" href="https://maps.app.goo.gl/NFgCaqk2CauKQ4Hd8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Μαμουζέλος · Mamouzelos</span><span class="opt-el">Ταβέρνα · Taverna · Πόθια</span></span><span>›</span></a>
+      <a class="opt opt-brown" href="https://maps.app.goo.gl/X4L2fgUSDpFHLSoTA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Μπακαλόγατος · Bakaloгatos</span><span class="opt-el">Ταβέρνα · Taverna · Πόθια</span></span><span>›</span></a>
+      <a class="opt opt-brown" href="https://maps.app.goo.gl/bEhNpn4a49tT2TM28" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Μανιάς · Manias</span><span class="opt-el">Ουζερί · Ouzeri · Πόθια</span></span><span>›</span></a>
+      <a class="opt opt-brown" href="https://maps.app.goo.gl/fvnwkoFGtThQ7qWU9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Πίτσα · Pizza</span><span class="opt-el">Εστιατόριο · Restaurant · Πόθια</span></span><span>›</span></a>
+      <a class="opt opt-brown" href="https://maps.app.goo.gl/aD2c9XkN1yivcsfH6" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Pizza Porto Kalymnos</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+      <a class="opt opt-brown" href="https://maps.app.goo.gl/x9C7CJGKvEzNCJNS7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Humu Sushi</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+      <a class="opt opt-brown" href="https://maps.app.goo.gl/GXgaWk3BR3U8guzU9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Grill Master</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+      <a class="opt opt-brown" href="https://maps.app.goo.gl/fmbShvU2XBvo31ki9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Χοιροπιαστό · Souvlakia</span><span class="opt-el">Σουβλάκια · Grilled meat · Πόθια</span></span><span>›</span></a>
     </div>
     <div id="cat-masouri" style="display:none">
-      <button class="opt opt-dark" onclick="showCat(null)"><span class="cico">‹</span><span class="clabel"><span class="opt-en">Πίσω · Back</span></span></button>
-      <a class="opt opt-green" href="https://maps.app.goo.gl/KJpd4PtsavsWBT6r8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Αιγαιοπελαγίτικο</span><span class="opt-el">Μασούρι</span></span><span>›</span></a>
-      <a class="opt opt-green" href="https://maps.app.goo.gl/FxVpgsVBcW9j2kwZ6" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Prego</span><span class="opt-el">Μασούρι</span></span><span>›</span></a>
-      <a class="opt opt-green" href="https://maps.app.goo.gl/Ngs4H1w2EAg7Gu5T8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Καπτεν Κώστας</span><span class="opt-el">Εμπορειός</span></span><span>›</span></a>
+      <button class="opt opt-brown" onclick="showCat(null)"><span class="cico">‹</span><span class="clabel"><span class="opt-en">Πίσω · Back</span></span></button>
+      <a class="opt opt-brown" href="https://maps.app.goo.gl/KJpd4PtsavsWBT6r8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Αιγαιοπελαγίτικο · Aegean</span><span class="opt-el">Εστιατόριο · Restaurant · Μασούρι</span></span><span>›</span></a>
+      <a class="opt opt-brown" href="https://maps.app.goo.gl/FxVpgsVBcW9j2kwZ6" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Prego</span><span class="opt-el">Μασούρι</span></span><span>›</span></a>
+      <a class="opt opt-brown" href="https://maps.app.goo.gl/Ngs4H1w2EAg7Gu5T8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Καπτεν Κώστας · Capten Kostas</span><span class="opt-el">Εστιατόριο · Restaurant · Εμπορειός</span></span><span>›</span></a>
     </div>
     <div id="cat-pserimos" style="display:none">
-      <button class="opt opt-dark" onclick="showCat(null)"><span class="cico">‹</span><span class="clabel"><span class="opt-en">Πίσω · Back</span></span></button>
-      <a class="opt opt-green" href="https://maps.app.goo.gl/UAauXjtHyWVtxLP78" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Τρυπολίτης</span><span class="opt-el">Ψέριμος</span></span><span>›</span></a>
-      <a class="opt opt-green" href="https://maps.app.goo.gl/AdRvPvpWuqCFeead7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Μανώλα</span><span class="opt-el">Ψέριμος</span></span><span>›</span></a>
+      <button class="opt opt-brown" onclick="showCat(null)"><span class="cico">‹</span><span class="clabel"><span class="opt-en">Πίσω · Back</span></span></button>
+      <a class="opt opt-brown" href="https://maps.app.goo.gl/UAauXjtHyWVtxLP78" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Τρυπολίτης · Trypolitis</span><span class="opt-el">Εστιατόριο · Restaurant · Ψέριμος</span></span><span>›</span></a>
+      <a class="opt opt-brown" href="https://maps.app.goo.gl/AdRvPvpWuqCFeead7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Μανώλα · Manola</span><span class="opt-el">Εστιατόριο · Restaurant · Ψέριμος</span></span><span>›</span></a>
     </div>
     <div id="cat-telendos" style="display:none">
-      <button class="opt opt-dark" onclick="showCat(null)"><span class="cico">‹</span><span class="clabel"><span class="opt-en">Πίσω · Back</span></span></button>
-      <a class="opt opt-green" href="https://maps.app.goo.gl/iCNj2FYPcFGVNYcXA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Καψούλι</span><span class="opt-el">Τέλενδος</span></span><span>›</span></a>
-      <a class="opt opt-green" href="https://maps.app.goo.gl/ZgWdxKa6JNNvm5s87" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Ρίτα</span><span class="opt-el">Τέλενδος</span></span><span>›</span></a>
+      <button class="opt opt-brown" onclick="showCat(null)"><span class="cico">‹</span><span class="clabel"><span class="opt-en">Πίσω · Back</span></span></button>
+      <a class="opt opt-brown" href="https://maps.app.goo.gl/iCNj2FYPcFGVNYcXA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Καψούλι · Kapsouli</span><span class="opt-el">Εστιατόριο · Restaurant · Τέλενδος</span></span><span>›</span></a>
+      <a class="opt opt-brown" href="https://maps.app.goo.gl/ZgWdxKa6JNNvm5s87" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Ρίτα · Rita</span><span class="opt-el">Εστιατόριο · Restaurant · Τέλενδος</span></span><span>›</span></a>
     </div>
     <div id="cat-cafe" style="display:none">
-      <button class="opt opt-dark" onclick="showCat(null)"><span class="cico">‹</span><span class="clabel"><span class="opt-en">Πίσω · Back</span></span></button>
-      <a class="opt opt-blue" href="https://maps.app.goo.gl/DkqMz7zYLNCJDmVa9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Βουρος Ζαχαροπλαστείο</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
-      <a class="opt opt-blue" href="https://maps.app.goo.gl/FsqNxviWAwZi6s2H9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Μιχαλαράς Ζαχαροπλαστείο</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
-      <a class="opt opt-blue" href="https://maps.app.goo.gl/jULc3fGQerKBUDvG7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Νέον Καφέ</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
-      <a class="opt opt-blue" href="https://maps.app.goo.gl/wkdBfwGgShTSTfUx5" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Boutique Bistro</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
-      <a class="opt opt-blue" href="https://maps.app.goo.gl/c4Ms6rpShPgpttSM9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Κλήμης Αρτοποιείο</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+      <button class="opt opt-brown" onclick="showCat(null)"><span class="cico">‹</span><span class="clabel"><span class="opt-en">Πίσω · Back</span></span></button>
+      <a class="opt opt-brown" href="https://maps.app.goo.gl/DkqMz7zYLNCJDmVa9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Βουρος · Vouros</span><span class="opt-el">Ζαχαροπλαστείο · Patisserie · Πόθια</span></span><span>›</span></a>
+      <a class="opt opt-brown" href="https://maps.app.goo.gl/FsqNxviWAwZi6s2H9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Μιχαλαράς · Michalaras</span><span class="opt-el">Ζαχαροπλαστείο · Patisserie · Πόθια</span></span><span>›</span></a>
+      <a class="opt opt-brown" href="https://maps.app.goo.gl/jULc3fGQerKBUDvG7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Νέον Καφέ · Neon Café</span><span class="opt-el">Καφέ · Café · Πόθια</span></span><span>›</span></a>
+      <a class="opt opt-brown" href="https://maps.app.goo.gl/wkdBfwGgShTSTfUx5" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Boutique Bistro</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+      <a class="opt opt-brown" href="https://maps.app.goo.gl/c4Ms6rpShPgpttSM9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Κλήμης · Klimis</span><span class="opt-el">Αρτοποιείο · Bakery · Πόθια</span></span><span>›</span></a>
     </div>
     <button class="cancel-btn" onclick="closeAll()">Κλείσιμο · Close</button>
   </div>
@@ -203,10 +230,10 @@
 <div class="overlay bottom" id="cafeMenu" onclick="closeAll()">
   <div class="sheet" onclick="event.stopPropagation()">
     <h3>Καφές - Ποτό · Café & Drinks</h3>
-    <a class="opt opt-blue" href="https://maps.app.goo.gl/fWgoNyFnNEsYicXC8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">ISLAND Cocktail Bar</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
-    <a class="opt opt-blue" href="https://maps.app.goo.gl/jcxdhu58H4Egtwss5" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Albus</span><span class="opt-el">Καντούνι</span></span><span>›</span></a>
-    <a class="opt opt-blue" href="https://maps.app.goo.gl/SiTa9XuvJZfmmvdk8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Domus</span><span class="opt-el">Καντούνι</span></span><span>›</span></a>
-    <a class="opt opt-blue" href="https://maps.app.goo.gl/X27z3xhD42Jbip146" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Kantina</span><span class="opt-el">Καντούνι</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/fWgoNyFnNEsYicXC8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">ISLAND Cocktail Bar</span><span class="opt-el">Μπαρ · Bar · Πόθια</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/jcxdhu58H4Egtwss5" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Albus</span><span class="opt-el">Καφέ · Café · Καντούνι</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/SiTa9XuvJZfmmvdk8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Domus</span><span class="opt-el">Καφέ · Café · Καντούνι</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/X27z3xhD42Jbip146" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/></svg></span><span class="clabel"><span class="opt-en">Kantina</span><span class="opt-el">Καφέ · Café · Καντούνι</span></span><span>›</span></a>
     <button class="cancel-btn" onclick="closeAll()">Κλείσιμο · Close</button>
   </div>
 </div>
@@ -215,9 +242,9 @@
 <div class="overlay bottom" id="playgroundMenu" onclick="closeAll()">
   <div class="sheet" onclick="event.stopPropagation()">
     <h3>Παιδικές Χαρές · Playgrounds</h3>
-    <a class="opt opt-green" href="https://maps.app.goo.gl/C5gYUrCNugdAKdLQA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M8 14s-4 1-4 4h16c0-3-4-4-4-4"/></svg></span><span class="clabel"><span class="opt-en">Παιδική Χαρά 1</span><span class="opt-el">Πιο κοντινή · Nearest</span></span><span>›</span></a>
-    <a class="opt opt-green" href="https://maps.app.goo.gl/zCEeHncRUUPSF2dVA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M8 14s-4 1-4 4h16c0-3-4-4-4-4"/></svg></span><span class="clabel"><span class="opt-en">Παιδική Χαρά 2</span><span class="opt-el">2η</span></span><span>›</span></a>
-    <a class="opt opt-green" href="https://maps.app.goo.gl/ToK95NyVVyL8ZZ3a9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M8 14s-4 1-4 4h16c0-3-4-4-4-4"/></svg></span><span class="clabel"><span class="opt-en">Παιδική Χαρά 3</span><span class="opt-el">Πιο απομακρυσμένη · Farthest</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/C5gYUrCNugdAKdLQA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M8 14s-4 1-4 4h16c0-3-4-4-4-4"/></svg></span><span class="clabel"><span class="opt-en">Παιδική Χαρά 1 · Playground 1</span><span class="opt-el">Πιο κοντινή · Nearest</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/zCEeHncRUUPSF2dVA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M8 14s-4 1-4 4h16c0-3-4-4-4-4"/></svg></span><span class="clabel"><span class="opt-en">Παιδική Χαρά 2 · Playground 2</span><span class="opt-el">2η</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/ToK95NyVVyL8ZZ3a9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M8 14s-4 1-4 4h16c0-3-4-4-4-4"/></svg></span><span class="clabel"><span class="opt-en">Παιδική Χαρά 3 · Playground 3</span><span class="opt-el">Πιο απομακρυσμένη · Farthest</span></span><span>›</span></a>
     <button class="cancel-btn" onclick="closeAll()">Κλείσιμο · Close</button>
   </div>
 </div>
@@ -226,14 +253,14 @@
 <div class="overlay bottom" id="transportMenu" onclick="closeAll()">
   <div class="sheet" onclick="event.stopPropagation()">
     <h3>Μεταφορές · Transport</h3>
-    <a class="opt opt-blue" href="https://maps.app.goo.gl/zKc3boM2kDitqZPY7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M6 20V9l6-6 6 6v11"/></svg></span><span class="clabel"><span class="opt-en">Λιμάνι Καλύμνου</span><span class="opt-el">Kalymnos Port</span></span><span>›</span></a>
-    <a class="opt opt-blue" href="https://maps.app.goo.gl/4i19yLvuQZnHYgPLA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21 4 19 4s-2 1-3.5 2.5L8 10 .8 8.2c-.8-.2-1-.8-.3-1.4l14-7c.7-.4 1.5.1 1.5.9L19 20c0 .8-.6 1.3-1.2 1.2z"/></svg></span><span class="clabel"><span class="opt-en">Αεροδρόμιο Καλύμνου</span><span class="opt-el">Kalymnos Airport</span></span><span>›</span></a>
-    <a class="opt opt-blue" href="https://maps.app.goo.gl/ZcUx58dsCn74GUjt9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M6 20V9l6-6 6 6v11"/></svg></span><span class="clabel"><span class="opt-en">Πορθμείο Μυρτιές - Τέλενδος</span><span class="opt-el">Ferry Myrties - Telendos</span></span><span>›</span></a>
-    <a class="opt opt-blue" href="https://maps.app.goo.gl/N2Rvs7hoDn5hRz4LA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M6 20V9l6-6 6 6v11"/></svg></span><span class="clabel"><span class="opt-en">Πορθμείο για Ψέριμο</span><span class="opt-el">Ferry to Pserimos</span></span><span>›</span></a>
-    <a class="opt opt-blue" href="https://maps.app.goo.gl/VCeFZs6ognZgbVEM8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span><span class="clabel"><span class="opt-en">Σταθμός Λεωφορείων</span><span class="opt-el">Bus Station</span></span><span>›</span></a>
-    <a class="opt opt-blue" href="https://maps.app.goo.gl/AQzpzraESdBv8Cjo6" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><span class="clabel"><span class="opt-en">Σταθμός Ταξί</span><span class="opt-el">Taxi Station</span></span><span>›</span></a>
-    <a class="opt opt-blue" href="https://maps.app.goo.gl/5mTLBuySZ4jWFCih8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span><span class="clabel"><span class="opt-en">Limani Car & Moto Rentals</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
-    <a class="opt opt-blue" href="https://maps.app.goo.gl/X4hAKxCT8gVkJBsJ7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span><span class="clabel"><span class="opt-en">Suzuki Rentals</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/zKc3boM2kDitqZPY7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M6 20V9l6-6 6 6v11"/></svg></span><span class="clabel"><span class="opt-en">Λιμάνι Καλύμνου</span><span class="opt-el">Kalymnos Port</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/4i19yLvuQZnHYgPLA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21 4 19 4s-2 1-3.5 2.5L8 10 .8 8.2c-.8-.2-1-.8-.3-1.4l14-7c.7-.4 1.5.1 1.5.9L19 20c0 .8-.6 1.3-1.2 1.2z"/></svg></span><span class="clabel"><span class="opt-en">Αεροδρόμιο Καλύμνου</span><span class="opt-el">Kalymnos Airport</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/ZcUx58dsCn74GUjt9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M6 20V9l6-6 6 6v11"/></svg></span><span class="clabel"><span class="opt-en">Πορθμείο Μυρτιές - Τέλενδος</span><span class="opt-el">Ferry Myrties - Telendos</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/N2Rvs7hoDn5hRz4LA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M6 20V9l6-6 6 6v11"/></svg></span><span class="clabel"><span class="opt-en">Πορθμείο για Ψέριμο</span><span class="opt-el">Ferry to Pserimos</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/VCeFZs6ognZgbVEM8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span><span class="clabel"><span class="opt-en">Σταθμός Λεωφορείων</span><span class="opt-el">Bus Station</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/AQzpzraESdBv8Cjo6" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><span class="clabel"><span class="opt-en">Σταθμός Ταξί</span><span class="opt-el">Taxi Station</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/5mTLBuySZ4jWFCih8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span><span class="clabel"><span class="opt-en">Limani Car & Moto Rentals</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/X4hAKxCT8gVkJBsJ7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span><span class="clabel"><span class="opt-en">Suzuki Rentals</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
     <button class="cancel-btn" onclick="closeAll()">Κλείσιμο · Close</button>
   </div>
 </div>
@@ -242,12 +269,12 @@
 <div class="overlay bottom" id="servicesMenu" onclick="closeAll()">
   <div class="sheet" onclick="event.stopPropagation()">
     <h3>Υπηρεσίες · Services</h3>
-    <a class="opt opt-dark" href="https://maps.app.goo.gl/QiU488cnsPGPViJ4A" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span class="clabel"><span class="opt-en">Αστυνομία · Police</span><span class="opt-el">Kalymnos</span></span><span>›</span></a>
-    <a class="opt opt-dark" href="https://maps.app.goo.gl/Y4V4pVyn1rnDNCXA9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span class="clabel"><span class="opt-en">Πυροσβεστική · Fire Station</span><span class="opt-el">Kalymnos</span></span><span>›</span></a>
-    <a class="opt opt-dark" href="https://maps.app.goo.gl/3nHVdRuiSyMuLSKC6" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M6 20V9l6-6 6 6v11"/></svg></span><span class="clabel"><span class="opt-en">Λιμεναρχείο · Port Authority</span><span class="opt-el">Kalymnos</span></span><span>›</span></a>
-    <a class="opt opt-dark" href="https://maps.app.goo.gl/SgREMWFRXHMJGsN7A" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span><span class="clabel"><span class="opt-en">Νοσοκομείο · Hospital</span><span class="opt-el">Kalymnos</span></span><span>›</span></a>
-    <a class="opt opt-dark" href="https://maps.app.goo.gl/K2LzLXCy7nHthGwX9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span><span class="clabel"><span class="opt-en">Φαρμακείο Choullis</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
-    <a class="opt opt-dark" href="https://maps.app.goo.gl/FFEWqm8DyxMmvYoW9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span><span class="clabel"><span class="opt-en">Φαρμακείο Troumouliaris</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/QiU488cnsPGPViJ4A" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span class="clabel"><span class="opt-en">Αστυνομία · Police</span><span class="opt-el">Kalymnos</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/Y4V4pVyn1rnDNCXA9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span class="clabel"><span class="opt-en">Πυροσβεστική · Fire Station</span><span class="opt-el">Kalymnos</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/3nHVdRuiSyMuLSKC6" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M6 20V9l6-6 6 6v11"/></svg></span><span class="clabel"><span class="opt-en">Λιμεναρχείο · Port Authority</span><span class="opt-el">Kalymnos</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/SgREMWFRXHMJGsN7A" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span><span class="clabel"><span class="opt-en">Νοσοκομείο · Hospital</span><span class="opt-el">Kalymnos</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/K2LzLXCy7nHthGwX9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span><span class="clabel"><span class="opt-en">Φαρμακείο Choullis</span><span class="opt-el">Pharmacy Choullis · Πόθια</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/FFEWqm8DyxMmvYoW9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span><span class="clabel"><span class="opt-en">Φαρμακείο Troumouliaris</span><span class="opt-el">Pharmacy Troumouliaris · Πόθια</span></span><span>›</span></a>
     <button class="cancel-btn" onclick="closeAll()">Κλείσιμο · Close</button>
   </div>
 </div>
@@ -256,9 +283,9 @@
 <div class="overlay bottom" id="marketMenu" onclick="closeAll()">
   <div class="sheet" onclick="event.stopPropagation()">
     <h3>Super Market</h3>
-    <a class="opt opt-amber" href="https://maps.app.goo.gl/h5r7pJtYA3Qa55WH9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span><span class="clabel"><span class="opt-en">Μασούτης</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
-    <a class="opt opt-amber" href="https://maps.app.goo.gl/jPoVq8dGjseQAfoC7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span><span class="clabel"><span class="opt-en">Σκλαβενίτης Φλασκάς</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
-    <a class="opt opt-amber" href="https://maps.app.goo.gl/4ESrnE3fAYoPdJVC9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span><span class="clabel"><span class="opt-en">Super Market</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/h5r7pJtYA3Qa55WH9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span><span class="clabel"><span class="opt-en">Μασούτης · Masoutis</span><span class="opt-el">Super Market · Πόθια</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/jPoVq8dGjseQAfoC7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span><span class="clabel"><span class="opt-en">Σκλαβενίτης Φλασκάς · Sklavenitis</span><span class="opt-el">Super Market · Πόθια</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/4ESrnE3fAYoPdJVC9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span><span class="clabel"><span class="opt-en">Super Market</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
     <button class="cancel-btn" onclick="closeAll()">Κλείσιμο · Close</button>
   </div>
 </div>
@@ -267,13 +294,13 @@
 <div class="overlay bottom" id="sightsMenu" onclick="closeAll()">
   <div class="sheet" onclick="event.stopPropagation()">
     <h3>Αξιοθέατα · Sights</h3>
-    <a class="opt opt-green" href="https://maps.app.goo.gl/EWYnexfeDvjEiaoD6" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="22" x2="22" y2="22"/><path d="M6 18V7l6-5 6 5v11"/><rect x="9" y="13" width="6" height="5"/></svg></span><span class="clabel"><span class="opt-en">Χριστός Καλύμνου</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
-    <a class="opt opt-green" href="https://maps.app.goo.gl/BtU8WQJKg5UjNm9t8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="22" x2="22" y2="22"/><path d="M6 18V7l6-5 6 5v11"/><rect x="9" y="13" width="6" height="5"/></svg></span><span class="clabel"><span class="opt-en">Ναυτικό Μουσείο</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
-    <a class="opt opt-green" href="https://maps.app.goo.gl/nfy3xUXnFfQNgqhB9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="22" x2="22" y2="22"/><path d="M6 18V7l6-5 6 5v11"/><rect x="9" y="13" width="6" height="5"/></svg></span><span class="clabel"><span class="opt-en">Αρχαιολογικό Μουσείο</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
-    <a class="opt opt-green" href="https://maps.app.goo.gl/Zk9RJ3RUx1Z2s54W6" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="22" x2="22" y2="22"/><path d="M6 18V7l6-5 6 5v11"/><rect x="9" y="13" width="6" height="5"/></svg></span><span class="clabel"><span class="opt-en">Άγιος Σάββας</span><span class="opt-el">Πόθια</span></span><span>›</span></a>
-    <a class="opt opt-green" href="https://maps.app.goo.gl/Gh6HNyYoNkaTbhai9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg></span><span class="clabel"><span class="opt-en">Κάστρο Χρυσοχεριάς</span><span class="opt-el">Castle Chrysocheria</span></span><span>›</span></a>
-    <a class="opt opt-green" href="https://maps.app.goo.gl/A2yyuhV5KhyHgtN37" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg></span><span class="clabel"><span class="opt-en">Κάστρο Χώρας</span><span class="opt-el">Castle Chora</span></span><span>›</span></a>
-    <a class="opt opt-green" href="https://maps.app.goo.gl/332FP382tDmJM99v9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span class="clabel"><span class="opt-en">Σπήλαιο Αναρρίχησης</span><span class="opt-el">Climbing Cave Masouri</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/EWYnexfeDvjEiaoD6" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="22" x2="22" y2="22"/><path d="M6 18V7l6-5 6 5v11"/><rect x="9" y="13" width="6" height="5"/></svg></span><span class="clabel"><span class="opt-en">Χριστός Καλύμνου · Christ of Kalymnos</span><span class="opt-el">Άγαλμα · Statue · Πόθια</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/BtU8WQJKg5UjNm9t8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="22" x2="22" y2="22"/><path d="M6 18V7l6-5 6 5v11"/><rect x="9" y="13" width="6" height="5"/></svg></span><span class="clabel"><span class="opt-en">Ναυτικό Μουσείο · Nautical Museum</span><span class="opt-el">Μουσείο · Museum · Πόθια</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/nfy3xUXnFfQNgqhB9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="22" x2="22" y2="22"/><path d="M6 18V7l6-5 6 5v11"/><rect x="9" y="13" width="6" height="5"/></svg></span><span class="clabel"><span class="opt-en">Αρχαιολογικό Μουσείο · Archaeological Museum</span><span class="opt-el">Μουσείο · Museum · Πόθια</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/Zk9RJ3RUx1Z2s54W6" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="22" x2="22" y2="22"/><path d="M6 18V7l6-5 6 5v11"/><rect x="9" y="13" width="6" height="5"/></svg></span><span class="clabel"><span class="opt-en">Άγιος Σάββας · St. Savvas</span><span class="opt-el">Εκκλησία · Church · Πόθια</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/Gh6HNyYoNkaTbhai9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg></span><span class="clabel"><span class="opt-en">Κάστρο Χρυσοχεριάς · Castle Chrysocheria</span><span class="opt-el">Κάστρο · Castle</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/A2yyuhV5KhyHgtN37" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg></span><span class="clabel"><span class="opt-en">Κάστρο Χώρας · Castle Chora</span><span class="opt-el">Κάστρο · Castle</span></span><span>›</span></a>
+    <a class="opt opt-brown" href="https://maps.app.goo.gl/332FP382tDmJM99v9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span class="clabel"><span class="opt-en">Σπήλαιο Αναρρίχησης · Climbing Cave</span><span class="opt-el">Σπήλαιο · Cave · Masouri</span></span><span>›</span></a>
     <button class="cancel-btn" onclick="closeAll()">Κλείσιμο · Close</button>
   </div>
 </div>
@@ -296,84 +323,90 @@
 
   <div id="mainMenu" class="main-menu">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-      <button class="menu-btn" onclick="showSection('checkin')" style="grid-column:1/-1;flex-direction:row;gap:16px;padding:18px 24px;">
-        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/></svg>
-        <span style="text-align:left;"><span style="display:block;font-size:16px;font-weight:900;text-shadow:1px 1px 3px rgba(0,0,0,0.8);">Check-in / Check-out</span><span style="display:block;font-size:12px;opacity:0.85;font-style:italic;">Κλειδοθήκη & Κωδικοί · Lockbox & Codes</span></span>
-      </button>
       <button class="menu-btn" onclick="showSection('properties')">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
         <span class="mlabel">Καταλύματα - Check in/out</span>
-        <span class="msub">City Stone Houses Kalymnos</span>
+        <span class="msub">Accommodations · Καταλύματα</span>
       </button>
       <button class="menu-btn" onclick="showSection('contact')">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         <span class="mlabel">Επικοινωνία · Contact</span>
-        <span class="msub">Τηλέφωνο & Social · Phone & Social</span>
+        <span class="msub">Τηλέφωνο & Social</span>
       </button>
       <button class="menu-btn" onclick="showSection('explore')">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-        <span class="mlabel">Εξερευνήστε την Κάλυμνο</span>
-        <span class="msub">Explore Kalymnos</span>
+        <span class="mlabel">Εξερευνήστε</span>
+        <span class="msub">Καλύμνος · Kalymnos</span>
       </button>
       <button class="menu-btn" onclick="showSection('info')">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-        <span class="mlabel">Χρήσιμες Πληροφορίες</span>
-        <span class="msub">Useful Information</span>
+        <span class="mlabel">Χρήσιμες</span>
+        <span class="msub">Πληροφορίες · Info</span>
       </button>
-    </div>
-  </div>
-
-  <!-- CHECK-IN -->
-  <div id="sec-checkin" class="section">
-    <button class="back-btn" onclick="showSection(null)">‹ Πίσω · Back</button>
-    <div class="sec-title"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/></svg>Check-in / Check-out</div>
-    <div class="sec-sub">Όλα για την άφιξή σας · Everything for your arrival</div>
-    <div class="info-row">
-      <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
-      <div class="txt">
-        <span class="bi-en">Check-in: 15:00 · Check-out: 11:00</span>
-        <span class="bi-el">Ώρα άφιξης: 15:00 · Ώρα αναχώρησης: 11:00</span>
-      </div>
-    </div>
-    <div class="info-row">
-      <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/></svg></span>
-      <div class="txt">
-        <span class="bi-en">Lockbox · Κλειδοθήκη</span>
-        <span class="bi-el">Contactless self check-in · Ανέπαφο check-in μέσω κλειδοθήκης</span>
-        <div class="btn-row">
-          <button class="btn" onclick="document.getElementById('lockboxPopup').classList.add('active')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Code · Κωδικός</button>
-          <a class="btn" href="https://maps.app.goo.gl/DwHyLxEJYLXebUWe7" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Find us · Βρείτε μας</a>
-        </div>
-      </div>
-    </div>
-    <div class="info-row">
-      <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg></span>
-      <div class="txt">
-        <span class="bi-en">Wi-Fi Password · Κωδικός Wi-Fi</span>
-        <span class="bi-el">Tap to reveal · Πατήστε για τον κωδικό</span>
-        <div class="btn-row">
-          <button class="btn" onclick="document.getElementById('wifiPopup').classList.add('active')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg>Code · Κωδικός</button>
-          <a class="btn" href="https://www.speedtest.net" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 13 9 16 9"/><path d="M3 15a9 9 0 1 0 9-9"/></svg>Speed Test</a>
-        </div>
-      </div>
-    </div>
-    <div class="info-row">
-      <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="M12 22v-4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg></span>
-      <div class="txt">
-        <span class="bi-en">Water Heater · Θερμοσίφωνας</span>
-        <span class="bi-el">Turn on 5 min before use · Ανάψτε 5 λεπτά πριν τη χρήση</span>
-        <span class="bi-desc-en">Switch is in the electrical panel</span>
-        <span class="bi-desc-el">Ο διακόπτης στον ηλεκτρικό πίνακα</span>
-      </div>
     </div>
   </div>
 
   <!-- PROPERTIES -->
   <div id="sec-properties" class="section">
     <button class="back-btn" onclick="showSection(null)">‹ Πίσω · Back</button>
-    <div class="sec-title"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>Καταλύματα · Accommodations</div>
+    <div class="sec-title">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+      Καταλύματα · Accommodations
+    </div>
     <div class="sec-sub">City Stone Houses Kalymnos</div>
 
+    <!-- CHECK-IN ACCORDION - CITY 1 -->
+    <div class="checkin-accordion">
+      <button class="checkin-toggle" onclick="toggleAcc('acc1')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/></svg>
+        Check-in / Check-out · City Stone Houses 1
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="checkin-body" id="acc1">
+        <div class="info-row" style="margin-bottom:8px;">
+          <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+          <div class="txt">
+            <span class="bi-en">Check-in: 15:00 · Check-out: 11:00</span>
+            <span class="bi-el">Ώρα άφιξης: 15:00 · Ώρα αναχώρησης: 11:00</span>
+            <div class="btn-row">
+              <a class="btn" href="https://maps.app.goo.gl/DwHyLxEJYLXebUWe7" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Βρείτε μας · Find us (City 1)</a>
+            </div>
+          </div>
+        </div>
+        <div class="info-row" style="margin-bottom:8px;">
+          <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/></svg></span>
+          <div class="txt">
+            <span class="bi-en">Lockbox · Κλειδοθήκη</span>
+            <span class="bi-el">Contactless self check-in · Ανέπαφο check-in μέσω κλειδοθήκης</span>
+            <div class="btn-row">
+              <button class="btn" onclick="document.getElementById('lockboxPopup').classList.add('active')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Code · Κωδικός</button>
+            </div>
+          </div>
+        </div>
+        <div class="info-row" style="margin-bottom:8px;">
+          <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg></span>
+          <div class="txt">
+            <span class="bi-en">Wi-Fi Password · Κωδικός Wi-Fi</span>
+            <span class="bi-el">Tap to reveal · Πατήστε για τον κωδικό</span>
+            <div class="btn-row">
+              <button class="btn" onclick="document.getElementById('wifiPopup').classList.add('active')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg>Code · Κωδικός</button>
+              <a class="btn" href="https://www.speedtest.net" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 13 9 16 9"/><path d="M3 15a9 9 0 1 0 9-9"/></svg>Speed Test</a>
+            </div>
+          </div>
+        </div>
+        <div class="info-row">
+          <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="M12 22v-4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg></span>
+          <div class="txt">
+            <span class="bi-en">Water Heater · Θερμοσίφωνας</span>
+            <span class="bi-el">Turn on 5 min before use · Ανάψτε 5 λεπτά πριν τη χρήση</span>
+            <span class="bi-desc-en">Switch is in the electrical panel</span>
+            <span class="bi-desc-el">Ο διακόπτης στον ηλεκτρικό πίνακα</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROPERTY CARD 1 -->
     <div class="prop-card">
       <div class="prop-gallery" id="g1">
         <img src="https://somoritis.github.io/citykalymnos/citystone/images/c1_1.jpg" class="active" alt="">
@@ -398,14 +431,66 @@
         <div class="gal-dots" id="d1"></div>
       </div>
       <div class="prop-info">
-        <div class="prop-name">City Stone Houses Kalymnos · 1</div>
-        <div class="prop-sub">Πόθια · 2-4 άτομα · persons</div>
+        <div class="prop-name" style="color:#222;text-shadow:none;">City Stone Houses Kalymnos · 1</div>
+        <div class="prop-sub" style="color:#fff;">Πόθια · Έως 5 άτομα · Up to 5 persons</div>
         <div class="chips">
-          <span class="chip">🛏️ 2 Rooms</span><span class="chip">📺 TV</span><span class="chip">📶 Wi-Fi</span><span class="chip">❄️ A/C</span><span class="chip">🫧 Washing Machine</span><span class="chip">☕ Coffee Maker</span><span class="chip">🍞 Toaster</span><span class="chip">💨 Hair Dryer</span><span class="chip">👕 Iron</span><span class="chip">🍳 Cookware</span><span class="chip">🍽️ Plates</span><span class="chip">🥃 Glasses</span><span class="chip">🧸 Baby Cot</span><span class="chip">🏖️ Near Sea</span>
+          <span class="chip">1. 2 Δωμάτια · Rooms</span><span class="chip">2. Τηλεόραση · TV</span><span class="chip">3. Wi-Fi</span><span class="chip">4. Κλιματισμός · A/C</span><span class="chip">5. Πλυντήριο · Washing Machine</span><span class="chip">6. Καφετιέρα · Coffee Maker</span><span class="chip">7. Τοστιέρα · Toaster</span><span class="chip">8. Πιστολάκι · Hair Dryer</span><span class="chip">9. Σίδερο · Iron</span><span class="chip">10. Μαγειρικά · Cookware</span><span class="chip">11. Πιάτα · Plates</span><span class="chip">12. Ποτήρια · Glasses</span><span class="chip">13. Βρεφικό Κρεβάτι · Baby Cot</span><span class="chip">14. Κοντά στη Θάλασσα · Near Sea</span>
         </div>
       </div>
     </div>
 
+    <!-- CHECK-IN ACCORDION - CITY 2 -->
+    <div class="checkin-accordion">
+      <button class="checkin-toggle" onclick="toggleAcc('acc2')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/></svg>
+        Check-in / Check-out · City Stone Houses 2
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="checkin-body" id="acc2">
+        <div class="info-row" style="margin-bottom:8px;">
+          <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+          <div class="txt">
+            <span class="bi-en">Check-in: 15:00 · Check-out: 11:00</span>
+            <span class="bi-el">Ώρα άφιξης: 15:00 · Ώρα αναχώρησης: 11:00</span>
+            <div class="btn-row">
+              <a class="btn" href="https://maps.app.goo.gl/DwHyLxEJYLXebUWe7" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Βρείτε μας · Find us (City 2)</a>
+            </div>
+          </div>
+        </div>
+        <div class="info-row" style="margin-bottom:8px;">
+          <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/></svg></span>
+          <div class="txt">
+            <span class="bi-en">Lockbox · Κλειδοθήκη</span>
+            <span class="bi-el">Contactless self check-in · Ανέπαφο check-in μέσω κλειδοθήκης</span>
+            <div class="btn-row">
+              <button class="btn" onclick="document.getElementById('lockboxPopup').classList.add('active')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Code · Κωδικός</button>
+            </div>
+          </div>
+        </div>
+        <div class="info-row" style="margin-bottom:8px;">
+          <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg></span>
+          <div class="txt">
+            <span class="bi-en">Wi-Fi Password · Κωδικός Wi-Fi</span>
+            <span class="bi-el">Tap to reveal · Πατήστε για τον κωδικό</span>
+            <div class="btn-row">
+              <button class="btn" onclick="document.getElementById('wifiPopup').classList.add('active')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg>Code · Κωδικός</button>
+              <a class="btn" href="https://www.speedtest.net" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 13 9 16 9"/><path d="M3 15a9 9 0 1 0 9-9"/></svg>Speed Test</a>
+            </div>
+          </div>
+        </div>
+        <div class="info-row">
+          <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="M12 22v-4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg></span>
+          <div class="txt">
+            <span class="bi-en">Water Heater · Θερμοσίφωνας</span>
+            <span class="bi-el">Turn on 5 min before use · Ανάψτε 5 λεπτά πριν τη χρήση</span>
+            <span class="bi-desc-en">Switch is in the electrical panel</span>
+            <span class="bi-desc-el">Ο διακόπτης στον ηλεκτρικό πίνακα</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROPERTY CARD 2 -->
     <div class="prop-card">
       <div class="prop-gallery" id="g2">
         <img src="https://i.imgur.com/REeFgF0.jpg" class="active" alt="">
@@ -425,10 +510,10 @@
         <div class="gal-dots" id="d2"></div>
       </div>
       <div class="prop-info">
-        <div class="prop-name">City Stone Houses Kalymnos · 2</div>
-        <div class="prop-sub">Πόθια · 2-4 άτομα · persons</div>
+        <div class="prop-name" style="color:#222;text-shadow:none;">City Stone Houses Kalymnos · 2</div>
+        <div class="prop-sub" style="color:#fff;">Πόθια · Έως 5 άτομα · Up to 5 persons</div>
         <div class="chips">
-          <span class="chip">🛏️ 2 Rooms</span><span class="chip">📺 TV</span><span class="chip">📶 Wi-Fi</span><span class="chip">❄️ A/C</span><span class="chip">🫧 Washing Machine</span><span class="chip">☕ Coffee Maker</span><span class="chip">🍞 Toaster</span><span class="chip">💨 Hair Dryer</span><span class="chip">👕 Iron</span><span class="chip">🍳 Cookware</span><span class="chip">🍽️ Plates</span><span class="chip">🥃 Glasses</span><span class="chip">🧸 Baby Cot</span><span class="chip">🏖️ Near Sea</span>
+          <span class="chip">1. Ιδιωτική Αυλή & Μπάρμπεκιου · Private Yard & BBQ</span><span class="chip">2. 2 Δωμάτια · Rooms</span><span class="chip">3. Τηλεόραση · TV</span><span class="chip">4. Wi-Fi</span><span class="chip">5. Κλιματισμός · A/C</span><span class="chip">6. Πλυντήριο · Washing Machine</span><span class="chip">7. Καφετιέρα · Coffee Maker</span><span class="chip">8. Τοστιέρα · Toaster</span><span class="chip">9. Πιστολάκι · Hair Dryer</span><span class="chip">10. Σίδερο · Iron</span><span class="chip">11. Μαγειρικά · Cookware</span><span class="chip">12. Πιάτα · Plates</span><span class="chip">13. Ποτήρια · Glasses</span><span class="chip">14. Βρεφικό Κρεβάτι · Baby Cot</span><span class="chip">15. Κοντά στη Θάλασσα · Near Sea</span>
         </div>
       </div>
     </div>
@@ -445,7 +530,7 @@
         <span class="bi-en">Beaches · Παραλίες</span>
         <span class="bi-el">14 beaches nearest first · 14 παραλίες από την πιο κοντινή</span>
         <div class="btn-row">
-          <button class="btn" onclick="document.getElementById('beachMenu').classList.add('active')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg>Beaches · Παραλίες</button>
+          <button class="btn" onclick="document.getElementById('beachMenu').classList.add('active'); showToast('beachToast')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20H7"/><path d="M12 20V10"/><path d="M5 10c0-4 3-7 7-7s7 3 7 7"/><path d="M3 14h18"/></svg>Beaches · Παραλίες</button>
         </div>
       </div>
     </div>
@@ -582,11 +667,21 @@
 
 </div>
 
+<!-- TOAST -->
+<div class="toast" id="beachToast">
+  <div class="toast-icon">🏖️</div>
+  <div class="toast-body">
+    <div class="toast-title">Σειρά παραλιών · Beach order</div>
+    <div class="toast-msg">Οι παραλίες εμφανίζονται από την <strong>πιο κοντινή</strong> έως την <strong>πιο απομακρυσμένη</strong> από το κατάλυμά σας.<br><em>Beaches are listed from <strong>nearest</strong> to <strong>farthest</strong> from your accommodation.</em></div>
+  </div>
+  <div class="toast-bar"></div>
+</div>
+
 <script>
   // SECTIONS
   function showSection(id){
     document.getElementById('mainMenu').style.display = id ? 'none' : 'block';
-    ['checkin','properties','explore','info','contact'].forEach(s=>{
+    ['properties','explore','info','contact'].forEach(s=>{
       var el = document.getElementById('sec-'+s);
       if(el) el.classList.toggle('active', s===id);
     });
@@ -675,7 +770,53 @@
     galInit('g2');
   });
 
+  // TOAST
+  var toastTimer = null;
+  function showToast(id){
+    var t = document.getElementById(id);
+    if(!t) return;
+    // reset
+    t.classList.remove('show');
+    // restart bar animation by cloning
+    var bar = t.querySelector('.toast-bar');
+    var newBar = bar.cloneNode(true);
+    bar.parentNode.replaceChild(newBar, bar);
+    if(toastTimer) clearTimeout(toastTimer);
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        t.classList.add('show');
+        toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 5000);
+      });
+    });
+  }
+
+  // TOAST
+  var toastTimer = null;
+  function showToast(id){
+    var t = document.getElementById(id);
+    if(!t) return;
+    if(toastTimer) clearTimeout(toastTimer);
+    t.classList.add('show');
+    toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 5000);
+  }
+
   document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeAll(); });
+
+  // ACCORDION
+  function toggleAcc(id){
+    var body = document.getElementById(id);
+    var btn = body.previousElementSibling;
+    var isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    btn.classList.toggle('open', !isOpen);
+  }
 </script>
+<!-- TOAST -->
+<div class="toast" id="beachToast">
+  <span class="toast-icon">🗺️</span>
+  <span class="toast-el">Σειρά από κοντινότερη έως πιο απομακρυσμένη</span>
+  <span class="toast-en">Sorted nearest to farthest from your accommodation</span>
+</div>
+
 </body>
 </html>
