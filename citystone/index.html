@@ -66,6 +66,7 @@
   /* OVERLAYS */
   .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;}
   .overlay.bottom{align-items:flex-end;padding-bottom:20px;}
+  .overlay.center{align-items:center;justify-content:center;}
   .overlay.active{display:flex;}
   .popup-box{background:#fff8eb;border-radius:20px;padding:32px 28px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.4);max-width:300px;width:90%;animation:popIn 0.25s ease;}
   @keyframes popIn{from{transform:scale(0.8);opacity:0}to{transform:scale(1);opacity:1}}
@@ -74,6 +75,7 @@
   .popup-code{font-size:32px;font-weight:900;letter-spacing:5px;color:#8B5E3C;background:rgba(139,94,60,0.1);border-radius:12px;padding:16px 24px;margin-bottom:20px;cursor:pointer;}
   .popup-close{background:linear-gradient(135deg,#8B5E3C,#C49A6C);color:#fff;border:none;border-radius:20px;padding:9px 28px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;}
   .sheet{background:#fff8eb;border-radius:24px 24px 16px 16px;padding:24px 20px;width:92%;max-width:420px;max-height:85vh;overflow-y:auto;animation:slideUp 0.25s ease;box-shadow:0 -10px 40px rgba(0,0,0,0.3);}
+  .sheet.center-sheet{border-radius:20px;animation:popIn 0.25s ease;box-shadow:0 20px 60px rgba(0,0,0,0.4);}
   @keyframes slideUp{from{transform:translateY(60px);opacity:0}to{transform:translateY(0);opacity:1}}
   .sheet h3{font-size:15px;font-weight:700;color:#6B3F1F;text-align:center;margin-bottom:3px;display:flex;align-items:center;justify-content:center;gap:6px;}
   .sheet .sub{font-size:12px;color:#a07850;text-align:center;margin-bottom:16px;}
@@ -91,8 +93,14 @@
   .opt-phone{background:linear-gradient(135deg,#333,#555);}
   .opt-whatsapp{background:linear-gradient(135deg,#1fbe57,#25D366);}
   .opt-viber{background:linear-gradient(135deg,#6f3fa8,#9b59d0);}
-  .cancel-btn{width:100%;padding:12px;border-radius:16px;border:1px solid rgba(255,80,80,0.4);background:rgba(220,50,50,0.2);color:#ff6b6b;font-size:13px;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;margin-top:6px;}
-  .cancel-btn:hover{background:rgba(220,50,50,0.35);}
+  /* TOAST NOTIFICATION */
+  .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(20,20,20,0.92);backdrop-filter:blur(12px);color:#fff;border-radius:18px;padding:14px 20px;max-width:320px;width:90%;text-align:center;z-index:99999;opacity:0;pointer-events:none;transition:opacity 0.4s ease, transform 0.4s ease;border:1px solid rgba(255,215,0,0.35);box-shadow:0 8px 32px rgba(0,0,0,0.5);}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+  .toast .toast-icon{font-size:22px;margin-bottom:6px;display:block;}
+  .toast .toast-title{font-size:13px;font-weight:900;color:#FFD700;margin-bottom:4px;display:block;}
+  .toast .toast-msg{font-size:12px;color:rgba(255,255,255,0.85);line-height:1.5;display:block;}
+  .toast .toast-bar{height:3px;background:rgba(255,215,0,0.4);border-radius:2px;margin-top:10px;overflow:hidden;}
+  .toast .toast-bar-fill{height:100%;background:#FFD700;border-radius:2px;width:100%;transition:width 5s linear;}
 
   /* TOAST NOTIFICATION */
   .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(20,20,20,0.92);backdrop-filter:blur(12px);color:#fff;padding:14px 20px;border-radius:16px;font-family:'Lato',sans-serif;font-size:13px;font-weight:600;text-align:center;z-index:99999;opacity:0;transition:opacity 0.35s ease,transform 0.35s ease;pointer-events:none;max-width:300px;border:1px solid rgba(255,215,0,0.3);box-shadow:0 8px 32px rgba(0,0,0,0.5);}
@@ -128,7 +136,7 @@
   <div class="popup-box" onclick="event.stopPropagation()">
     <h3>Wi-Fi Password · Κωδικός</h3>
     <div class="sub">Πατήστε για αντιγραφή · Tap to copy</div>
-    <div class="popup-code" id="wifiCode" onclick="copyVal('wifiCode','69422461573')">69422461573</div>
+    <div class="popup-code" id="wifiCode" onclick="copyVal('wifiCode','65729459')">65729459</div>
     <button class="popup-close" onclick="closeAll()">OK ✓</button>
   </div>
 </div>
@@ -176,8 +184,8 @@
 </div>
 
 <!-- FOOD SHEET -->
-<div class="overlay bottom" id="foodMenu" onclick="closeAll()">
-  <div class="sheet" onclick="event.stopPropagation()">
+<div class="overlay center" id="foodMenu" onclick="closeAll()">
+  <div class="sheet center-sheet" onclick="event.stopPropagation()">
     <h3>Φαγητό · Food</h3>
     <div class="sub">Επιλέξτε κατηγορία · Choose category</div>
     <div id="foodCats">
@@ -239,8 +247,8 @@
 </div>
 
 <!-- PLAYGROUND SHEET -->
-<div class="overlay bottom" id="playgroundMenu" onclick="closeAll()">
-  <div class="sheet" onclick="event.stopPropagation()">
+<div class="overlay center" id="playgroundMenu" onclick="closeAll()">
+  <div class="sheet center-sheet" onclick="event.stopPropagation()">
     <h3>Παιδικές Χαρές · Playgrounds</h3>
     <a class="opt opt-brown" href="https://maps.app.goo.gl/C5gYUrCNugdAKdLQA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M8 14s-4 1-4 4h16c0-3-4-4-4-4"/></svg></span><span class="clabel"><span class="opt-en">Παιδική Χαρά 1 · Playground 1</span><span class="opt-el">Πιο κοντινή · Nearest</span></span><span>›</span></a>
     <a class="opt opt-brown" href="https://maps.app.goo.gl/zCEeHncRUUPSF2dVA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M8 14s-4 1-4 4h16c0-3-4-4-4-4"/></svg></span><span class="clabel"><span class="opt-en">Παιδική Χαρά 2 · Playground 2</span><span class="opt-el">2η</span></span><span>›</span></a>
@@ -250,8 +258,8 @@
 </div>
 
 <!-- TRANSPORT SHEET -->
-<div class="overlay bottom" id="transportMenu" onclick="closeAll()">
-  <div class="sheet" onclick="event.stopPropagation()">
+<div class="overlay center" id="transportMenu" onclick="closeAll()">
+  <div class="sheet center-sheet" onclick="event.stopPropagation()">
     <h3>Μεταφορές · Transport</h3>
     <a class="opt opt-brown" href="https://maps.app.goo.gl/zKc3boM2kDitqZPY7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M6 20V9l6-6 6 6v11"/></svg></span><span class="clabel"><span class="opt-en">Λιμάνι Καλύμνου</span><span class="opt-el">Kalymnos Port</span></span><span>›</span></a>
     <a class="opt opt-brown" href="https://maps.app.goo.gl/4i19yLvuQZnHYgPLA" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21 4 19 4s-2 1-3.5 2.5L8 10 .8 8.2c-.8-.2-1-.8-.3-1.4l14-7c.7-.4 1.5.1 1.5.9L19 20c0 .8-.6 1.3-1.2 1.2z"/></svg></span><span class="clabel"><span class="opt-en">Αεροδρόμιο Καλύμνου</span><span class="opt-el">Kalymnos Airport</span></span><span>›</span></a>
@@ -280,8 +288,8 @@
 </div>
 
 <!-- MARKET SHEET -->
-<div class="overlay bottom" id="marketMenu" onclick="closeAll()">
-  <div class="sheet" onclick="event.stopPropagation()">
+<div class="overlay center" id="marketMenu" onclick="closeAll()">
+  <div class="sheet center-sheet" onclick="event.stopPropagation()">
     <h3>Super Market</h3>
     <a class="opt opt-brown" href="https://maps.app.goo.gl/h5r7pJtYA3Qa55WH9" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span><span class="clabel"><span class="opt-en">Μασούτης · Masoutis</span><span class="opt-el">Super Market · Πόθια</span></span><span>›</span></a>
     <a class="opt opt-brown" href="https://maps.app.goo.gl/jPoVq8dGjseQAfoC7" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span><span class="clabel"><span class="opt-en">Σκλαβενίτης Φλασκάς · Sklavenitis</span><span class="opt-el">Super Market · Πόθια</span></span><span>›</span></a>
@@ -291,8 +299,8 @@
 </div>
 
 <!-- SIGHTS SHEET -->
-<div class="overlay bottom" id="sightsMenu" onclick="closeAll()">
-  <div class="sheet" onclick="event.stopPropagation()">
+<div class="overlay center" id="sightsMenu" onclick="closeAll()">
+  <div class="sheet center-sheet" onclick="event.stopPropagation()">
     <h3>Αξιοθέατα · Sights</h3>
     <a class="opt opt-brown" href="https://maps.app.goo.gl/EWYnexfeDvjEiaoD6" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="22" x2="22" y2="22"/><path d="M6 18V7l6-5 6 5v11"/><rect x="9" y="13" width="6" height="5"/></svg></span><span class="clabel"><span class="opt-en">Χριστός Καλύμνου · Christ of Kalymnos</span><span class="opt-el">Άγαλμα · Statue · Πόθια</span></span><span>›</span></a>
     <a class="opt opt-brown" href="https://maps.app.goo.gl/BtU8WQJKg5UjNm9t8" target="_blank"><span class="cico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="22" x2="22" y2="22"/><path d="M6 18V7l6-5 6 5v11"/><rect x="9" y="13" width="6" height="5"/></svg></span><span class="clabel"><span class="opt-en">Ναυτικό Μουσείο · Nautical Museum</span><span class="opt-el">Μουσείο · Museum · Πόθια</span></span><span>›</span></a>
@@ -370,6 +378,7 @@
             <span class="bi-el">Ώρα άφιξης: 15:00 · Ώρα αναχώρησης: 11:00</span>
             <div class="btn-row">
               <a class="btn" href="https://maps.app.goo.gl/DwHyLxEJYLXebUWe7" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Βρείτε μας · Find us (City 1)</a>
+              <a class="btn" href="https://somoritis.github.io/citykalymnos/videos/city1checkin.mp4" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="white" stroke="none"/></svg>Οδηγίες · How to Check-in</a>
             </div>
           </div>
         </div>
@@ -454,6 +463,7 @@
             <span class="bi-el">Ώρα άφιξης: 15:00 · Ώρα αναχώρησης: 11:00</span>
             <div class="btn-row">
               <a class="btn" href="https://maps.app.goo.gl/DwHyLxEJYLXebUWe7" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Βρείτε μας · Find us (City 2)</a>
+              <a class="btn" href="https://somoritis.github.io/citykalymnos/videos/city2checkin.mp4" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="white" stroke="none"/></svg>Οδηγίες · How to Check-in</a>
             </div>
           </div>
         </div>
