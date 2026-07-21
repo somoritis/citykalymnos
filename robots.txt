@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /citystone/
+
+Sitemap: https://citystonehouseskalymnos.gr/sitemap.xml
