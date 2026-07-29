@@ -1,9 +1,33 @@
-/* Visible FAQ accordion, generated from the page's own FAQPage JSON-LD.
-   Keeps visible content identical to the structured data, in every language.
+/* Two small jobs, both driven by the page's own language:
+   1. Point the footer "how to get to Kalymnos" link at the matching language version.
+   2. Render a visible FAQ accordion from the page's own FAQPage JSON-LD,
+      so the visible content always matches the structured data.
    Safe: does nothing if the page has no FAQPage schema or already shows a #faq section. */
 (function () {
-  function headings() {
-    var l = (document.documentElement.lang || 'en').slice(0, 2).toLowerCase();
+
+  function lang() {
+    return (document.documentElement.lang || 'en').slice(0, 2).toLowerCase();
+  }
+
+  /* ---------- 1. localise the how-to link ---------- */
+  function fixHowToLinks() {
+    var l = lang();
+    if (l === 'el') return;                       // Greek page already points to the Greek version
+    var known = ['en', 'de', 'fr', 'it', 'tr'];
+    if (known.indexOf(l) === -1) return;
+    var target = '/' + l + '/how-to-get-to-kalymnos.html';
+    var links = document.querySelectorAll('a[href$="/how-to-get-to-kalymnos.html"], a[href="how-to-get-to-kalymnos.html"]');
+    for (var i = 0; i < links.length; i++) {
+      var href = links[i].getAttribute('href') || '';
+      // only rewrite links that still point at the root (Greek) version
+      if (/^(https?:\/\/[^/]+)?\/?how-to-get-to-kalymnos\.html$/.test(href)) {
+        links[i].setAttribute('href', target);
+      }
+    }
+  }
+
+  /* ---------- 2. visible FAQ from the page's schema ---------- */
+  function heading() {
     var d = {
       el: 'Συχνές ερωτήσεις',
       en: 'Frequently asked questions',
@@ -12,7 +36,7 @@
       it: 'Domande frequenti',
       tr: 'Sıkça sorulan sorular'
     };
-    return d[l] || d.en;
+    return d[lang()] || d.en;
   }
 
   function getQAs() {
@@ -34,8 +58,8 @@
     return [];
   }
 
-  function build() {
-    if (document.getElementById('faq')) return;          // already has a visible FAQ
+  function buildFAQ() {
+    if (document.getElementById('faq')) return;   // page already shows a visible FAQ
     var qas = getQAs();
     if (!qas.length) return;
 
@@ -44,7 +68,7 @@
     sec.style.cssText = 'max-width:900px;margin:48px auto;padding:0 20px;';
 
     var h = document.createElement('h2');
-    h.textContent = headings();
+    h.textContent = heading();
     h.style.cssText = 'text-align:center;color:#0b3a53;margin-bottom:14px;';
     sec.appendChild(h);
 
@@ -73,9 +97,14 @@
     }
   }
 
+  function run() {
+    try { fixHowToLinks(); } catch (e) {}
+    try { buildFAQ(); } catch (e) {}
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', build);
+    document.addEventListener('DOMContentLoaded', run);
   } else {
-    build();
+    run();
   }
 })();
