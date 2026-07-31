@@ -26,6 +26,61 @@
     }
   }
 
+  /* ---------- 1b. add the climbing guide next to the how-to link ---------- */
+  function climbText() {
+    var d = {
+      el: 'Αναρρίχηση στην Κάλυμνο',
+      en: 'Climbing in Kalymnos',
+      de: 'Klettern auf Kalymnos',
+      fr: 'Escalade à Kalymnos',
+      it: 'Arrampicata a Kalymnos',
+      tr: "Kalymnos'ta tırmanış"
+    };
+    return d[lang()] || d.en;
+  }
+
+  function climbSub() {
+    var d = {
+      el: '4.500+ διαδρομές — και πού να μείνετε',
+      en: '4,500+ routes — and where to stay',
+      de: '4.500+ Routen — und wo man wohnt',
+      fr: '4 500+ voies — et où loger',
+      it: '4.500+ vie — e dove dormire',
+      tr: "4.500+ rota — ve nerede kalmalı"
+    };
+    return d[lang()] || d.en;
+  }
+
+  function addClimbLink() {
+    if (document.querySelector('a[href*="kalymnos-climbing-accommodation"]')) return;
+    var l = lang();
+    var known = ['el', 'en', 'de', 'fr', 'it', 'tr'];
+    if (known.indexOf(l) === -1) return;
+    var target = (l === 'el' ? '/' : '/' + l + '/') + 'kalymnos-climbing-accommodation.html';
+
+    var ref = document.querySelector('footer a[href*="how-to-get-to-kalymnos"]');
+    if (!ref || !ref.parentNode) return;
+
+    var a = document.createElement('a');
+    a.href = target;
+    a.textContent = climbText();
+    var small = document.createElement('span');
+    small.textContent = climbSub();
+    small.style.cssText = 'display:block;font-size:.85em;opacity:.8;';
+
+    // mirror whatever wrapper the how-to link already sits in
+    var host = ref.parentNode;
+    if (host.tagName === 'FOOTER' || host.children.length > 3) {
+      ref.insertAdjacentElement('afterend', a);
+      a.insertAdjacentElement('afterend', small);
+    } else {
+      var clone = host.cloneNode(false);
+      clone.appendChild(a);
+      clone.appendChild(small);
+      host.insertAdjacentElement('afterend', clone);
+    }
+  }
+
   /* ---------- 2. visible FAQ from the page's schema ---------- */
   function heading() {
     var d = {
@@ -99,6 +154,7 @@
 
   function run() {
     try { fixHowToLinks(); } catch (e) {}
+    try { addClimbLink(); } catch (e) {}
     try { buildFAQ(); } catch (e) {}
   }
 
