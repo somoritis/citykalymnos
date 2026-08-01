@@ -136,8 +136,21 @@
       sum.style.cssText = 'cursor:pointer;font-weight:600;color:#0b3a53;';
 
       var p = document.createElement('p');
-      p.textContent = item.a;
       p.style.cssText = 'margin:10px 0 0;color:#33555f;line-height:1.6;';
+      /* turn any plain http(s) address in the answer into a real link */
+      var parts = String(item.a).split(/(https?:\/\/[^\s<>"']+)/g);
+      for (var k = 0; k < parts.length; k++) {
+        var chunk = parts[k];
+        if (/^https?:\/\//.test(chunk)) {
+          var a = document.createElement('a');
+          a.href = chunk;
+          a.textContent = chunk.replace(/^https?:\/\//, '').replace(/\/$/, '');
+          a.style.cssText = 'color:#1f6f9c;';
+          p.appendChild(a);
+        } else if (chunk) {
+          p.appendChild(document.createTextNode(chunk));
+        }
+      }
 
       det.appendChild(sum);
       det.appendChild(p);
