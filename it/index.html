@@ -761,9 +761,9 @@ function setLang(l){
   });
   for(const id in _PLACEHOLDERS){const e=document.getElementById(id);if(e)e.placeholder=LNG(_PLACEHOLDERS[id]);}
   const M=MONTHS_I18N[l]||MONTHS_I18N.el, D=DAYS_I18N[l]||DAYS_I18N.el;
-  GR_MONTHS.splice.apply(GR_MONTHS,[0,12].concat(M));
+  try{GR_MONTHS.splice.apply(GR_MONTHS,[0,12].concat(M));
   GR_DAYS.splice.apply(GR_DAYS,[0,7].concat(D));
-  renderCal('house1');renderCal('house2');
+  renderCal('house1');renderCal('house2');}catch(err){}
   if(typeof calcPrice==='function')calcPrice();
   const lc=document.getElementById('langCur');if(lc)lc.textContent=LANG_LABELS[l];
   const lm=document.getElementById('langMenu');if(lm)lm.classList.remove('open');
