@@ -408,15 +408,15 @@
 
     <div class="prop-card">
       <div class="prop-gallery" id="g2">
-        <img src="https://i.imgur.com/REeFgF0.jpg" class="active" alt="">
-        <img src="https://i.imgur.com/sDdUg3p.jpg" alt="">
-        <img src="https://i.imgur.com/jbvwW8d.jpg" alt="">
-        <img src="https://i.imgur.com/CwNY6dY.jpg" alt="">
-        <img src="https://i.imgur.com/WFUqvOB.jpg" alt="">
-        <img src="https://i.imgur.com/4IZky5w.jpg" alt="">
-        <img src="https://i.imgur.com/icIfOxI.jpg" alt="">
-        <img src="https://i.imgur.com/ExlOBZk.jpg" alt="">
-        <img src="https://i.imgur.com/KZSA2ZE.jpg" alt="">
+        <img src="https://citystonehouseskalymnos.gr/citystone/images/c2h_1.jpg" class="active" alt="">
+        <img src="https://citystonehouseskalymnos.gr/citystone/images/c2h_2.jpg" alt="">
+        <img src="https://citystonehouseskalymnos.gr/citystone/images/c2h_3.jpg" alt="">
+        <img src="https://citystonehouseskalymnos.gr/citystone/images/c2h_4.jpg" alt="">
+        <img src="https://citystonehouseskalymnos.gr/citystone/images/c2h_5.jpg" alt="">
+        <img src="https://citystonehouseskalymnos.gr/citystone/images/c2h_6.jpg" alt="">
+        <img src="https://citystonehouseskalymnos.gr/citystone/images/c2h_7.jpg" alt="">
+        <img src="https://citystonehouseskalymnos.gr/citystone/images/c2h_8.jpg" alt="">
+        <img src="https://citystonehouseskalymnos.gr/citystone/images/c2h_9.jpg" alt="">
         <div class="gal-counter" id="c2">1 / 9</div>
         <div class="gal-nav">
           <button class="gal-btn" id="p2">‹</button>
