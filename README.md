@@ -7,7 +7,7 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
   *{margin:0;padding:0;box-sizing:border-box;}
-  body{font-family:'Lato',sans-serif;background:url('https://i.imgur.com/c4LWX9v.jpg') center/cover fixed;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:30px 20px;}
+  body{font-family:'Lato',sans-serif;background:url('https://citystonehouseskalymnos.gr/citystone/images/c1_1.jpg') center/cover fixed;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:30px 20px;}
   body::before{content:'';position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:0;}
   .card{position:relative;z-index:1;background:transparent;border-radius:24px;max-width:520px;width:100%;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.5);}
   .header{background:rgba(139,94,60,0.25);backdrop-filter:blur(8px);padding:30px 30px 42px;text-align:center;position:relative;}
@@ -93,7 +93,7 @@
   <div class="popup-box" onclick="event.stopPropagation()">
     <h3>Lockbox Code · Κωδικός</h3>
     <div class="sub">Πατήστε για αντιγραφή · Tap to copy</div>
-    <div class="popup-code" id="lockboxCode" onclick="copyVal('lockboxCode','0000')">0000</div>
+    <div class="popup-code" id="lockboxCode" onclick="copyVal('lockboxCode','REMOVED')">REMOVED</div>
     <button class="popup-close" onclick="closeAll()">OK ✓</button>
   </div>
 </div>
@@ -101,7 +101,7 @@
   <div class="popup-box" onclick="event.stopPropagation()">
     <h3>Wi-Fi Password · Κωδικός</h3>
     <div class="sub">Πατήστε για αντιγραφή · Tap to copy</div>
-    <div class="popup-code" id="wifiCode" onclick="copyVal('wifiCode','69422461573')">69422461573</div>
+    <div class="popup-code" id="wifiCode" onclick="copyVal('wifiCode','REMOVED')">REMOVED</div>
     <button class="popup-close" onclick="closeAll()">OK ✓</button>
   </div>
 </div>
