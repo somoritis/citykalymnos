@@ -156,7 +156,7 @@
                                                                                                                                                                                                                                                                                             ]
                                                                                                                                                                                                                                                                                     
                                                                                                                   
-  ;}
+  };
   function getQAs() {
     var scripts = document.querySelectorAll('script[type="application/ld+json"]');
     for (var i = 0; i < scripts.length; i++) {
